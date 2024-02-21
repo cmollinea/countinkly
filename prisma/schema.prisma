@@ -26,14 +26,21 @@ model Session {
 }
 
 model Link {
-  id           String         @id
-  originalLink String
-  shortedLink  String
-  clickCount   Int            @default(0)
+  id           String        @id
+  displayName  String        @default("Display Name Fallback")
+  url          String        @unique
+  clickCount   Int           @default(0)
+  shortedLink  ShortedLink?
+  linkMetadata LinkMetadata?
+  clicks       Clicks[]
   userId       String
-  LinkMetadata LinkMetadata[]
-  Visit        Visit[]
-  user         User           @relation(references: [id], fields: [userId], onDelete: Cascade)
+  user         User          @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
+
+model ShortedLink {
+  shortUrl String @id @unique
+  linkId   String @unique
+  link     Link   @relation(references: [id], fields: [linkId], onDelete: Cascade)
 }
 
 model LinkMetadata {
@@ -41,12 +48,12 @@ model LinkMetadata {
   title       String
   description String
   og          String
-  linkId      String
+  linkId      String @unique
   link        Link   @relation(references: [id], fields: [linkId], onDelete: Cascade)
 }
 
-model Visit {
-  id        String   @id
+model Clicks {
+  id        Int      @id @default(autoincrement())
   timestamp DateTime
   origin    String
   linkId    String
