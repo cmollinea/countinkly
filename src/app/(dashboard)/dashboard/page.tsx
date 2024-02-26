@@ -11,8 +11,6 @@ export default async function Page() {
 
   const handleAddNewLink = addNewLink.bind(null, user.id);
 
-  console.log(user);
-
   return (
     <section className='grid gap-4'>
       <h1>

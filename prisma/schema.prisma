@@ -13,9 +13,14 @@ datasource db {
 model User {
   id             String    @id
   sessions       Session[]
+  firstName      String
+  lastName       String
+  occupation     String
+  email          String
   userName       String    @unique
   hashedPassword String
   Links          Link[]
+  Clicks         Clicks[]
 }
 
 model Session {
@@ -54,8 +59,10 @@ model LinkMetadata {
 
 model Clicks {
   id        Int      @id @default(autoincrement())
-  timestamp DateTime
+  timestamp DateTime @default(now())
   origin    String
   linkId    String
+  userId    String
   link      Link     @relation(references: [id], fields: [linkId], onDelete: Cascade)
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
 }
