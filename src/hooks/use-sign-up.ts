@@ -28,7 +28,10 @@ const formSchema = z
       }),
     confirmPassword: z.string()
   })
-  .refine((data) => data.password === data.confirmPassword);
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Passwords must match',
+    path: ['confirmPassword']
+  });
 
 const initialState = {
   message: '',
