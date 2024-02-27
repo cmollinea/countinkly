@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { Header } from '@/components/header/header';
-import { HomeNav } from '@/components/navigation/home-nav';
 import { ThemeProvider } from '@/components/providers/theme-provider';
+import { ProgressBar } from '@/components/ui/progress-bar';
+import { Toaster } from 'sonner';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,6 +21,8 @@ export default function RootLayout({
     <html lang='en'>
       <body className={inter.className + ' relative'}>
         <ThemeProvider attribute='class' defaultTheme='light'>
+          <ProgressBar />
+          <Toaster />
           {children}
         </ThemeProvider>
       </body>

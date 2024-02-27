@@ -18,8 +18,6 @@ export async function createRecord(linkId: string) {
     country = 'Home';
   }
 
-  console.log(country);
-
   const record = await prisma?.clicks.create({
     data: {
       origin: (country as string) || '',

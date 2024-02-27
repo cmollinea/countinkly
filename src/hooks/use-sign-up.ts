@@ -46,7 +46,7 @@ export function useSignUp() {
     }
   });
 
-  const [state, signupWithState] = useFormState(signup, initialState);
+  const [formState, signupWithState] = useFormState(signup, initialState);
   const [isPending, startTransition] = useTransition();
 
   async function handleSignUp(values: z.infer<typeof formSchema>) {
@@ -54,11 +54,10 @@ export function useSignUp() {
     Object.entries(values).forEach((property) =>
       formData.append(property[0], property[1])
     );
-    startTransition(() => {
-      signupWithState(formData);
+    startTransition(async () => {
+      await signupWithState(formData);
     });
-    toast(JSON.stringify(values));
   }
 
-  return { form, handleSignUp, state, isPending };
+  return { form, handleSignUp, formState, isPending };
 }

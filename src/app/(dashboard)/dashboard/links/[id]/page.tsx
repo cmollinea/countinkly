@@ -28,8 +28,6 @@ async function LinksPage({ params }: Props) {
     return <p>404</p>;
   }
 
-  console.log(clicks);
-
   return (
     <section className='grid'>
       <pre className='max-w-xl'>{JSON.stringify(link)}</pre>

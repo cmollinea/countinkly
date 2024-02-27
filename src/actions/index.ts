@@ -73,7 +73,10 @@ export async function signup(
   return { message: 'User created successfully' };
 }
 
-export async function login(formData: FormData): Promise<ActionResult> {
+export async function login(
+  initialState: any,
+  formData: FormData
+): Promise<ActionResult> {
   'use server';
   const username = formData.get('username');
   if (
@@ -133,7 +136,7 @@ export async function login(formData: FormData): Promise<ActionResult> {
     sessionCookie.value,
     sessionCookie.attributes
   );
-  return redirect('/');
+  return redirect('/dashboard');
 }
 
 export async function addNewLink(userId: string, formData: FormData) {
