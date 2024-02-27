@@ -63,13 +63,15 @@ export async function signup(
     }
   });
 
-  const session = await lucia.createSession(userId, {});
-  const sessionCookie = lucia.createSessionCookie(session.id);
-  cookies().set(
-    sessionCookie.name,
-    sessionCookie.value,
-    sessionCookie.attributes
-  );
+  //!I don not want a onstant log in
+
+  // const session = await lucia.createSession(userId, {});
+  // const sessionCookie = lucia.createSessionCookie(session.id);
+  // cookies().set(
+  //   sessionCookie.name,
+  //   sessionCookie.value,
+  //   sessionCookie.attributes
+  // );
   return { message: 'User created successfully' };
 }
 
