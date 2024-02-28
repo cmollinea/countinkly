@@ -2,7 +2,7 @@ import { login } from '@/actions';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { useFormState } from 'react-dom';
-import { useTransition } from 'react';
+import { useEffect, useTransition } from 'react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -26,6 +26,20 @@ export const useLogIn = () => {
   const [isPending, startTransition] = useTransition();
   const [formState, logInWithState] = useFormState(login, initialState);
 
+  useEffect(() => {
+		if (!formState.error && !formState.message) {
+			return;
+		}
+
+		if (formState.message) {
+			toast(formState.message);
+		}
+
+		if (formState.error) {
+			toast.error(formState.error);
+		}
+	}, [formState]);
+
   async function handleLogIn(values: z.infer<typeof formSchema>) {
     const formData = new FormData();
     formData.append('username', values.username);
@@ -35,5 +49,5 @@ export const useLogIn = () => {
     });
   }
 
-  return { handleLogIn, form, isPending, formState };
+  return { handleLogIn, form, isPending };
 };

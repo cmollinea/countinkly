@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { signup } from '@/actions';
 import { useFormState } from 'react-dom';
-import { useTransition } from 'react';
+import { useEffect, useTransition } from 'react';
 
 const formSchema = z
   .object({
@@ -49,15 +49,33 @@ export function useSignUp() {
   const [formState, signupWithState] = useFormState(signup, initialState);
   const [isPending, startTransition] = useTransition();
 
+  useEffect(() => {
+		if (!formState.error && !formState.message) {
+			return;
+		}
+
+		if (formState.message) {
+			toast(formState.message);
+		}
+
+		if (formState.error) {
+			toast.error(formState.error);
+		}
+	}, [formState]);
+
   async function handleSignUp(values: z.infer<typeof formSchema>) {
     const formData = new FormData();
-    Object.entries(values).forEach((property) =>
-      formData.append(property[0], property[1])
-    );
+    // Object.entries(values).forEach((property) =>
+    //   formData.append(property[0], property[1])
+    // );
+    for (const [key, value] of Object.entries(values))  {
+      formData.append(key, value)
+    } 
+    Object.entries(values)
     startTransition(async () => {
       await signupWithState(formData);
     });
   }
 
-  return { form, handleSignUp, formState, isPending };
+  return { form, handleSignUp, isPending };
 }

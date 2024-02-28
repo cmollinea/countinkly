@@ -10,26 +10,24 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
-import { useEffect } from "react";
 import { useSignUp } from "@/hooks/use-sign-up";
 
 export function SignUpForm() {
-	const { form, handleSignUp, formState, isPending } = useSignUp();
+	const { form, handleSignUp, isPending } = useSignUp();
 
-	useEffect(() => {
-		if (!formState.error && !formState.message) {
-			return;
-		}
+	// useEffect(() => {
+	// 	if (!formState.error && !formState.message) {
+	// 		return;
+	// 	}
 
-		if (formState.message) {
-			toast(formState.message);
-		}
+	// 	if (formState.message) {
+	// 		toast(formState.message);
+	// 	}
 
-		if (formState.error) {
-			toast.error(formState.error);
-		}
-	}, [formState]);
+	// 	if (formState.error) {
+	// 		toast.error(formState.error);
+	// 	}
+	// }, [formState]);
 	return (
 		<Form {...form}>
 			<form
@@ -154,7 +152,7 @@ export function SignUpForm() {
 					disabled={isPending}
 					type="submit"
 					size={"lg"}
-					className="w-full space-x-2 flex items-center"
+					className="w-full space-x-2 flex items-center disabled:cursor-wait"
 				>
 					{isPending && (
 						<span className="h-5 w-5 border-dashed border-t-2 border-r-2 border-primary-foreground rounded-full animate-spin" />
