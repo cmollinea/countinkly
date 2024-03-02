@@ -1,5 +1,6 @@
 "use client";
 
+import { login } from "@/actions";
 import { Button } from "@/components/ui/button";
 import {
 	Form,
@@ -10,10 +11,15 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useLogIn } from "@/hooks/use-log-in";
+import { useFormWithAction } from "@/hooks/use-form-with-action";
+import { loginSchema } from "@/zod";
 
 export const LogInForm = () => {
-	const { handleLogIn, form, isPending } = useLogIn();
+	const {
+		handleAction: handleLogIn,
+		form,
+		isPending,
+	} = useFormWithAction(login, loginSchema);
 
 	return (
 		<Form {...form}>

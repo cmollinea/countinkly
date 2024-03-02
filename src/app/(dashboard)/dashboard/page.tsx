@@ -1,43 +1,24 @@
-import { redirect } from 'next/navigation';
-import { validateRequest } from '@/lib/validateRequest';
-import { addNewLink } from '@/actions';
-import Link from 'next/link';
+import { redirect } from "next/navigation";
+import { validateRequest } from "@/lib/validateRequest";
+import { addNewLink } from "@/actions";
+import { AddLinkForm } from "@/components/forms/add-link-form";
 
 export default async function Page() {
-  const { user } = await validateRequest();
-  if (!user) {
-    return redirect('/log-in');
-  }
+	const { user } = await validateRequest();
+	if (!user) {
+		return redirect("/log-in");
+	}
 
-  const handleAddNewLink = addNewLink.bind(null, user.id);
+	const handleAddNewLink = addNewLink.bind(null, user.id);
 
-  return (
-    <section className='grid gap-4'>
-      <h1>
-        Hi, {user.username}! here are your{' '}
-        <Link href={'/dashboard/links'}>Links</Link>
-      </h1>
-      <div className='grid gap-2'>
-        <form action={handleAddNewLink}>
-          <div>
-            <label htmlFor='url'>Url</label>
-            <input id='url' type='text' name='url' />
-          </div>
-          <div>
-            <label htmlFor='title'>Title Metadata</label>
-            <input id='title' type='text' name='title' />
-          </div>
-          <div>
-            <label htmlFor='description'> Description Metadata</label>
-            <input id='description' type='text' name='description' />
-          </div>
-          <div>
-            <label htmlFor='og'>Og Metadata</label>
-            <input id='og' type='text' name='og' />
-          </div>
-          <button type='submit'>submit</button>
-        </form>
-      </div>
-    </section>
-  );
+	return (
+		<section className="grid gap-4">
+			<div className="flex items-center justify-between px-4">
+				<span />
+				<div className="grid gap-2">
+					<AddLinkForm userId={user.id} />
+				</div>
+			</div>
+		</section>
+	);
 }

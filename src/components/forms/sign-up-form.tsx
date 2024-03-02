@@ -1,5 +1,6 @@
 "use client";
 
+import { signup } from "@/actions";
 import { Button } from "@/components/ui/button";
 import {
 	Form,
@@ -10,28 +11,19 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useSignUp } from "@/hooks/use-sign-up";
+import { useFormWithAction } from "@/hooks/use-form-with-action";
+import { signUpSchema } from "@/zod";
 
 export function SignUpForm() {
-	const { form, handleSignUp, isPending } = useSignUp();
+	const {
+		form,
+		handleAction: handleSignUp,
+		isPending,
+	} = useFormWithAction(signup, signUpSchema);
 
-	// useEffect(() => {
-	// 	if (!formState.error && !formState.message) {
-	// 		return;
-	// 	}
-
-	// 	if (formState.message) {
-	// 		toast(formState.message);
-	// 	}
-
-	// 	if (formState.error) {
-	// 		toast.error(formState.error);
-	// 	}
-	// }, [formState]);
 	return (
 		<Form {...form}>
 			<form
-				// action={signupWithState}
 				onSubmit={form.handleSubmit(handleSignUp)}
 				className="space-y-6 mt-10 max-w-md mx-auto w-full"
 			>

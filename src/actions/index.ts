@@ -9,12 +9,28 @@ import { nanoid, random } from 'nanoid';
 import { randomUUID } from 'crypto';
 import { validateRequest } from '@/lib/validateRequest';
 
-interface ActionResult {
+export interface ActionResult {
   error?: string;
   message?: string;
+  linkPayload?:
+    | ({
+        shortedLink: {
+          shortUrl: string;
+          linkId: string;
+        } | null;
+      } & {
+        id: string;
+        displayName: string;
+        url: string;
+        clickCount: number;
+        userId: string;
+      })
+    | null
+    | undefined;
 }
 
 interface LinkData {
+  displayName: string;
   url: string;
   userId: string;
   linkMetadata?: {
@@ -77,7 +93,7 @@ export async function signup(
 }
 
 export async function login(
-  initialState: any,
+  prevState: any,
   formData: FormData
 ): Promise<ActionResult> {
   'use server';
@@ -142,9 +158,31 @@ export async function login(
   return redirect('/dashboard');
 }
 
-export async function addNewLink(userId: string, formData: FormData) {
-  const [url, title, description, og] = [
+export async function logout() {
+  const { session } = await validateRequest();
+  if (!session) {
+    return;
+  }
+
+  await lucia.invalidateSession(session.id);
+
+  const sessionCookie = lucia.createBlankSessionCookie();
+  cookies().set(
+    sessionCookie.name,
+    sessionCookie.value,
+    sessionCookie.attributes
+  );
+  return redirect('/log-in');
+}
+
+export async function addNewLink(
+  userId: string,
+  prevState: any,
+  formData: FormData
+) {
+  const [url, displayName, title, description, og] = [
     formData.get('url'),
+    formData.get('displayName'),
     formData.get('title'),
     formData.get('description'),
     formData.get('og')
@@ -153,11 +191,13 @@ export async function addNewLink(userId: string, formData: FormData) {
   const withMetadata =
     typeof title === 'string' &&
     typeof description === 'string' &&
-    typeof og === 'string';
+    typeof og === 'string' &&
+    typeof displayName === 'string';
 
-  if (typeof url === 'string') {
+  if (typeof url === 'string' && typeof displayName === 'string') {
     const linkData = {
       id: randomUUID(),
+      displayName,
       url,
       userId
     };
@@ -180,34 +220,47 @@ export async function addNewLink(userId: string, formData: FormData) {
                   id: randomUUID()
                 }
               }
+            },
+            include: {
+              shortedLink: true
             }
           })
         : await prisma.link.create({
             data: {
               ...linkData,
               shortedLink: { create: shortedLink }
-            }
+            },
+            include: { shortedLink: true }
           });
+
+      console.log(link);
+
+      return { linkPayload: link, message: 'Link added succesfully' };
     } catch (err) {
       if (err instanceof Error) {
         return { error: err.message };
       }
+      return { error: 'Something went wrong' };
     }
   }
+
+  return { error: 'URL must be a string' };
 }
 
-export async function logout(): Promise<ActionResult> {
+export async function deleteLink(linkId: string): Promise<ActionResult> {
+  try {
+    await prisma.link.delete({
+      where: {
+        id: linkId
+      }
+    });
 
-	const { session } = await validateRequest();
-	if (!session) {
-		return {
-			error: "Unauthorized"
-		};
-	}
+    return { message: 'Link deleted' };
+  } catch (err) {
+    if (err instanceof Error) {
+      return { error: err.message };
+    }
 
-	await lucia.invalidateSession(session.id);
-
-	const sessionCookie = lucia.createBlankSessionCookie();
-	cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
-	return redirect("/login");
+    return { error: 'Something went wrong' };
+  }
 }
