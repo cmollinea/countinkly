@@ -1,6 +1,6 @@
 import { Header } from "@/components/header/header";
 import { DashboardUser } from "@/components/navigation/dashboard-user";
-import { validateRequest } from "@/lib/validateRequest";
+import { validateRequest } from "@/lib/validate-request";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 

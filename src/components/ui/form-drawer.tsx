@@ -1,6 +1,4 @@
 "use client";
-import { cn } from "@/lib/utils";
-//todo instal this
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,6 +20,8 @@ import {
 	DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useState } from "react";
+
+//todo pass state to children in a context and then close drawer if link is succesfully created
 
 export const FormDrawer = ({ children }: { children: React.ReactNode }) => {
 	const [open, setOpen] = useState(false);

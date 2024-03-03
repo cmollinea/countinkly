@@ -1,15 +1,15 @@
 import { redirect } from "next/navigation";
-import { validateRequest } from "@/lib/validateRequest";
-import { addNewLink } from "@/actions";
+import { validateRequest } from "@/lib/validate-request";
 import { AddLinkForm } from "@/components/forms/add-link-form";
+import { ClicksCard } from "@/components/info-cards/clicks-card";
+import { SparklesIcon } from "lucide-react";
+import { getDailyClicks } from "@/lib/get-clicks";
 
 export default async function Page() {
 	const { user } = await validateRequest();
 	if (!user) {
 		return redirect("/log-in");
 	}
-
-	const handleAddNewLink = addNewLink.bind(null, user.id);
 
 	return (
 		<section className="grid gap-4">
@@ -19,6 +19,12 @@ export default async function Page() {
 					<AddLinkForm userId={user.id} />
 				</div>
 			</div>
+			<ClicksCard
+				id={user.id}
+				title="Clicks earned Today"
+				Icon={SparklesIcon}
+				clicksGetter={getDailyClicks}
+			/>
 		</section>
 	);
 }

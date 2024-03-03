@@ -1,9 +1,9 @@
-import { cookies, headers } from 'next/headers';
+import {  headers } from 'next/headers';
 
-export async function createRecord(linkId: string) {
-  let country;
-  let forwardedFor = headers().get('x-fowwarded-for');
-  let realIp = headers().get('x-real-ip');
+export async function createRecord(linkId: string, userId:string) {
+  let country:any;
+  const forwardedFor = headers().get('x-fowwarded-for');
+  const realIp = headers().get('x-real-ip');
   if (forwardedFor) {
     country = fetch(
       `http://ip-api.com/json/${forwardedFor.split(',')[0].trim()}`
@@ -15,14 +15,15 @@ export async function createRecord(linkId: string) {
       .then((res) => res.json())
       .then((data) => data.country);
   } else {
-    country = 'Home';
+    country = 'Unknown';
   }
 
   const record = await prisma?.clicks.create({
     data: {
       origin: (country as string) || '',
       timestamp: new Date(),
-      linkId: linkId
+      linkId: linkId,
+      userId
     }
   });
 }

@@ -5,7 +5,7 @@ import { FeaturesCard } from "@/components/home/features-cards";
 import { Footer } from "@/components/home/footer";
 import { Hero } from "@/components/home/hero";
 import { HomeNav } from "@/components/navigation/home-nav";
-import { validateRequest } from "@/lib/validateRequest";
+import { validateRequest } from "@/lib/validate-request";
 
 export default async function Home() {
 	const { user } = await validateRequest();

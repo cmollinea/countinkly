@@ -1,14 +1,17 @@
 import { LinksTable } from "@/components/tables";
-import { getUserLinks } from "@/lib/getUserLinks";
-import { validateRequest } from "@/lib/validateRequest";
+import { getUserLinks } from "@/lib/get-user-links";
+import { validateRequest } from "@/lib/validate-request";
 import { redirect } from "next/navigation";
 
 async function LinksPage() {
 	const { user } = await validateRequest();
+
 	if (!user) {
 		return redirect("/?code=401");
 	}
+
 	const links = await getUserLinks(user?.id);
+
 	const linksData = links.map((link) => {
 		return {
 			id: link.id,
