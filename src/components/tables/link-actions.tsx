@@ -2,6 +2,7 @@ import { ShareIcon, InfoIcon, TrashIcon, Share2Icon } from "lucide-react";
 import { Button } from "../ui/button";
 import { useState } from "react";
 import { NewLinkDialog } from "../new-link-dialog";
+import { DeleteConfirmation } from "../delete-confirmation";
 
 export const LinkAction = ({
 	shortUrl,
@@ -12,12 +13,13 @@ export const LinkAction = ({
 	deleteAction: () => void;
 	navigateAction: () => void;
 }) => {
-	const [open, setOpen] = useState(false);
+	const [openLinkInfo, setOpenLinkInfo] = useState(false);
+	const [openConfirmationDelete, setOpenConfirmationDelete] = useState(false);
 
 	return (
 		<>
 			<Button
-				onClick={() => setOpen(true)}
+				onClick={() => setOpenLinkInfo(true)}
 				className="h-7 w-7 hover:bg-primary hover:text-primary-foreground transition-all ease-linear"
 				variant={"outline"}
 				size={"icon"}
@@ -33,14 +35,22 @@ export const LinkAction = ({
 				<InfoIcon size={16} />
 			</Button>
 			<Button
-				onClick={deleteAction}
+				onClick={() => setOpenConfirmationDelete(true)}
 				className="h-7 w-7 hover:bg-destructive hover:text-destructive-foreground transition-all ease-linear bg-accent text-accent-foreground"
 				variant={"outline"}
 				size={"icon"}
 			>
 				<TrashIcon size={16} />
 			</Button>
-			<NewLinkDialog open={open} setOpen={setOpen} shortUrl={shortUrl} />
+			<NewLinkDialog
+				open={openLinkInfo}
+				setOpen={setOpenLinkInfo}
+				shortUrl={shortUrl}
+			/>
+			<DeleteConfirmation
+				openConfirmDelete={openConfirmationDelete}
+				setOpenConfirmDelete={setOpenConfirmationDelete}
+			/>
 		</>
 	);
 };

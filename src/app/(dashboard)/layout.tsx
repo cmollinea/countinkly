@@ -1,4 +1,5 @@
 import { Header } from "@/components/header/header";
+import { DashboardNav } from "@/components/navigation/dashboard-nav";
 import { DashboardUser } from "@/components/navigation/dashboard-user";
 import { validateRequest } from "@/lib/validate-request";
 import Link from "next/link";
@@ -14,12 +15,10 @@ async function DashboardLayout({ children }: { children: React.ReactNode }) {
 			<Header>
 				<DashboardUser user={user} />
 			</Header>
-			<div className="flex items-center place-content-start space-x-2 px-10 py-4">
-				<Link href={"/dashboard"}>General</Link>
-				<Link href={"/dashboard/links"}>Your Links</Link>
-				<Link href={"/dashboard/discover"}>Discover</Link>
-			</div>
-			{children}
+			<section className="flex md:h-[calc(100vh-64px)]">
+				<DashboardNav />
+				{children}
+			</section>
 		</>
 	);
 }

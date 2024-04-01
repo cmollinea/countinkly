@@ -17,14 +17,16 @@ type Props = {
 export const ClicksCard = async ({ id, clicksGetter, title, Icon }: Props) => {
 	const clicks = await clicksGetter(id);
 	return (
-		<Card className="max-w-xs w-full place-self-center md:place-self-start">
-			<CardHeader>
-				<CardTitle>{title}</CardTitle>
-				<span>
-					<Icon />
+		<Card className="w-full place-self-center md:place-self-start">
+			<CardHeader className="flex-row justify-between items-center">
+				<CardTitle className="text-xl">{title}</CardTitle>
+				<span className="bg-primary/20 dark:stext-primary-foreground/80 backdrop-blur-xl p-4 rounded-full">
+					<Icon size={24} />
 				</span>
 			</CardHeader>
-			<CardContent>{clicks}</CardContent>
+			<CardContent>
+				<p className="text-3xl">{clicks}</p>
+			</CardContent>
 		</Card>
 	);
 };

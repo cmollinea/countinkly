@@ -1,7 +1,9 @@
+import prisma from "./prisma";
+
 export async function getDailyClicks(id: string) {
 	const date = new Date();
 
-	const clicks = await prisma?.clicks.count({
+	const dailyClicks = await prisma?.clicks.count({
 		where: {
 			userId: id,
 			timestamp: {
@@ -12,11 +14,50 @@ export async function getDailyClicks(id: string) {
 		},
 	});
 
-	return clicks;
+	return dailyClicks;
+}
+
+export async function getTotalClicks(id: string) {
+	const totalClicks = await prisma?.clicks.count({ where: { userId: id } });
+	return totalClicks;
+}
+
+export async function getLinkTotalCLicks(id: string) {
+	const totalClicks = await prisma?.clicks.count({ where: { linkId: id } });
+	return totalClicks;
 }
 
 export async function getClicks(linkId: string) {
-	const clicks = await prisma?.clicks.findMany({ where: { linkId: linkId } });
+	const clicksWithInfo = await prisma?.clicks.findMany({
+		where: { linkId },
+	});
 
-	return clicks;
+	return clicksWithInfo;
+}
+
+export async function getCountries(id: string) {
+	const data = await prisma.clicks.groupBy({
+		by: ["origin"],
+		where: { userId: id },
+	});
+
+	return data.length;
+}
+
+export async function getLinkCountries(id: string) {
+	const data = await prisma.clicks.groupBy({
+		by: ["origin"],
+		where: { linkId: id },
+	});
+
+	return data.length;
+}
+
+export async function getLinks(id: string) {
+	const data = await prisma.user.findFirst({
+		where: { id },
+		select: { Links: true },
+	});
+
+	return data?.Links.length;
 }

@@ -25,7 +25,7 @@ async function LinksPage() {
 	console.log(links);
 
 	return (
-		<section className="py-16">
+		<section className="py-16 md:overflow-y-auto w-full">
 			<div className="flex place-content-center items-center w-full px-20">
 				<LinksTable links={linksData} />
 			</div>

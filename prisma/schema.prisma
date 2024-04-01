@@ -60,7 +60,8 @@ model LinkMetadata {
 model Clicks {
   id        Int      @id @default(autoincrement())
   timestamp DateTime @default(now())
-  origin    String
+  origin    String   @default("Unknown")
+  source    String
   linkId    String
   userId    String
   link      Link     @relation(references: [id], fields: [linkId], onDelete: Cascade)

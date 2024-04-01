@@ -7,15 +7,18 @@ type Props = {
 	params: {
 		id: string;
 	};
+	searchParams: {
+		source: string | undefined;
+	};
 };
 
-async function VisitCounter({ params }: Props) {
+async function VisitCounter({ params, searchParams }: Props) {
 	const link = await getOriginalUrl(params.id);
 	if (typeof link === "string") {
 		return <p>{link}</p>;
 	}
 
-	createRecord(link.id, link.userId);
+	createRecord(link.id, link.userId, searchParams.source || "Unknown");
 	incrementView(link.id);
 	redirect(link.url);
 	return null;
