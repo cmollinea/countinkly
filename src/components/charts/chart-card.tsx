@@ -11,7 +11,9 @@ interface Props {
 
 export const ChartCard = ({ children, className }: Props) => {
 	return (
-		<Card className={cn("w-full max-w-md h-full", className)}>{children}</Card>
+		<Card className={cn("w-full max-w-md h-full bg-muted/10", className)}>
+			{children}
+		</Card>
 	);
 };
 

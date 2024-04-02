@@ -17,7 +17,7 @@ type Props = {
 export const ClicksCard = async ({ id, clicksGetter, title, Icon }: Props) => {
 	const clicks = await clicksGetter(id);
 	return (
-		<Card className="w-full place-self-center md:place-self-start">
+		<Card className="w-full place-self-center md:place-self-start bg-muted/10">
 			<CardHeader className="flex-row justify-between items-center">
 				<CardTitle className="text-xl">{title}</CardTitle>
 				<span className="bg-primary/20 dark:stext-primary-foreground/80 backdrop-blur-xl p-4 rounded-full">

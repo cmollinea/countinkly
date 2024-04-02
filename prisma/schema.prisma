@@ -11,16 +11,18 @@ datasource db {
 }
 
 model User {
-  id             String    @id
+  id             String     @id
   sessions       Session[]
   firstName      String
   lastName       String
   occupation     String
   email          String
-  userName       String    @unique
+  userName       String     @unique
   hashedPassword String
   Links          Link[]
   Clicks         Clicks[]
+  Likes          Likes[]
+  Comments       Comments[]
 }
 
 model Session {
@@ -40,6 +42,26 @@ model Link {
   clicks       Clicks[]
   userId       String
   user         User          @relation(references: [id], fields: [userId], onDelete: Cascade)
+  Likes        Likes[]
+  Comments     Comments[]
+}
+
+model Likes {
+  id     String @id
+  userId String
+  linkId String
+  link   Link   @relation(references: [id], fields: [linkId], onDelete: Cascade)
+  user   User   @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
+
+model Comments {
+  id        String   @id
+  content   String
+  timestamp DateTime @default(now())
+  userId    String
+  linkId    String
+  link      Link     @relation(references: [id], fields: [linkId], onDelete: Cascade)
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
 }
 
 model ShortedLink {
