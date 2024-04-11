@@ -29,7 +29,7 @@ export const DashboardNav = () => {
 			</Link>
 			<Link
 				className={` transition-all ease-in-out p-2 rounded-md ${
-					path === "/dashboard/discover"
+					path.includes("/dashboard/discover")
 						? " bg-primary/80 text-primary-foreground"
 						: "hover:opacity-80 hover:bg-muted/50"
 				}`}

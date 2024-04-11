@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import {
 	Dialog,
 	DialogContent,
@@ -7,9 +7,6 @@ import {
 	DialogTitle,
 } from "../ui/dialog";
 import { socialMedia } from "@/constants";
-import { Button } from "../ui/button";
-import { ClipboardCopyIcon } from "lucide-react";
-import { copyToClipboard } from "@/lib/copy-to-clipboard";
 import { SocialLink } from "./social-link";
 
 type Props = {

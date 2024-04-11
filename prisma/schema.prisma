@@ -36,6 +36,7 @@ model Link {
   id           String        @id
   displayName  String        @default("Display Name Fallback")
   url          String        @unique
+  createdAt    DateTime      @default(now())
   clickCount   Int           @default(0)
   shortedLink  ShortedLink?
   linkMetadata LinkMetadata?

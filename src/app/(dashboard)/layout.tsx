@@ -15,7 +15,7 @@ async function DashboardLayout({ children }: { children: React.ReactNode }) {
 			<Header>
 				<DashboardUser user={user} />
 			</Header>
-			<section className="flex md:h-[calc(100vh-64px)]">
+			<section className="flex md:h-[calc(100vh-64px)] w-full">
 				<DashboardNav />
 				{children}
 			</section>

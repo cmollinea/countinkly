@@ -8,6 +8,7 @@ import { ClicksCard } from "@/components/info-cards/clicks-card";
 import { getLinkCountries, getLinkTotalCLicks } from "@/lib/get-clicks";
 import { CalculatorIcon, Globe2Icon } from "lucide-react";
 import { ClicksTable } from "@/components/tables/clicks-table";
+import { BackButton } from "@/components/dashboard/back-button";
 
 type Props = {
 	params: {
@@ -38,10 +39,9 @@ async function LinksPage({ params }: Props) {
 		return <p>Unauthorized</p>;
 	}
 
-	console.log(link);
-
 	return (
 		<section className="py-16 md:overflow-y-auto w-full px-4 md:px-10 grid gap-10">
+			<BackButton />
 			<div>
 				<h1 className=" text-2xl font-bold">
 					<span className=" text-primary">{link.displayName}</span> Information.

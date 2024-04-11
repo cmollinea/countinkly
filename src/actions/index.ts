@@ -8,6 +8,7 @@ import { generateId } from "lucia";
 import { nanoid, random } from "nanoid";
 import { randomUUID } from "crypto";
 import { validateRequest } from "@/lib/validate-request";
+import { toast } from "sonner";
 
 export interface ActionResult {
 	error?: string;
@@ -233,8 +234,6 @@ export async function addNewLink(
 						include: { shortedLink: true },
 				  });
 
-			console.log(link);
-
 			return { linkPayload: link, message: "Link added succesfully" };
 		} catch (err) {
 			if (err instanceof Error) {
@@ -262,5 +261,57 @@ export async function deleteLink(linkId: string): Promise<ActionResult> {
 		}
 
 		return { error: "Something went wrong" };
+	}
+}
+
+export async function addLike(linkId: string, userId: string) {
+	try {
+		const res = await prisma.likes.create({
+			data: {
+				id: randomUUID(),
+				userId,
+				linkId,
+			},
+		});
+	} catch (err) {
+		if (err instanceof Error) {
+			return { error: err.message };
+		}
+		return { error: "Unknown Error" };
+	}
+}
+
+export async function removeLike(likeId: string) {
+	try {
+		const res = await prisma.likes.delete({
+			where: { id: likeId },
+		});
+	} catch (err) {
+		if (err instanceof Error) {
+			return { error: err.message };
+		}
+		return { error: "Unknown Error" };
+	}
+}
+
+export async function addComment(
+	linkId: string,
+	userId: string,
+	content: string,
+) {
+	try {
+		const res = await prisma.comments.create({
+			data: {
+				id: randomUUID(),
+				linkId,
+				userId,
+				content,
+			},
+		});
+	} catch (err) {
+		if (err instanceof Error) {
+			return toast.error(err.message);
+		}
+		return toast.error("Unknown Error");
 	}
 }
