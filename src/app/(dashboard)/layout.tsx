@@ -1,6 +1,10 @@
 import { Header } from "@/components/header/header";
-import { DashboardNav } from "@/components/navigation/dashboard-nav";
+import {
+	DashboardLinks,
+	DashboardNav,
+} from "@/components/navigation/dashboard-nav";
 import { DashboardUser } from "@/components/navigation/dashboard-user";
+import { SmNav } from "@/components/navigation/sm-nav";
 import { validateRequest } from "@/lib/validate-request";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -13,7 +17,17 @@ async function DashboardLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<>
 			<Header>
-				<DashboardUser user={user} />
+				<div className=" max-md:hidden">
+					<DashboardUser user={user} />
+				</div>
+				<SmNav>
+					<div className=" absolute bottom-4">
+						<DashboardUser user={user} />
+					</div>
+					<div className="flex flex-col mt-10 w-fit">
+						<DashboardLinks />
+					</div>
+				</SmNav>
 			</Header>
 			<section className="flex md:h-[calc(100vh-64px)] w-full">
 				<DashboardNav />

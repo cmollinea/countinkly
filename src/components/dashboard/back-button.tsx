@@ -12,7 +12,13 @@ export const BackButton = () => {
 	const backLink = pathArr.slice(0, pathArr.length - 1).join("/");
 
 	return (
-		<Link href={backLink} className={buttonVariants({ variant: "ghost" })}>
+		<Link
+			href={backLink}
+			className={buttonVariants({
+				variant: "link",
+				className: "px-0 absolute md:left-4 top-4 left-0",
+			})}
+		>
 			<ChevronLeft size={16} />
 			<span>Back</span>
 		</Link>

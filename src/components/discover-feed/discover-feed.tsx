@@ -33,22 +33,30 @@ export const DiscoverFeed = async ({ userId }: Props) => {
 						className="w-full place-self-center bg-card/50 border-card-foreground/20 max-w-3xl"
 						key={link.id}
 					>
-						<CardHeader>
-							<CardTitle>{link.displayName}</CardTitle>
-							<small className="opacity-50 w-fit">
-								<Link
-									target="_blank"
-									href={`${process.env.NEXT_PUBLIC_DOMAIN}/${link.shortedLink?.shortUrl}?source=Countinkly`}
-									className="flex items-center space-x-0.5 hover:underline"
-								>
-									<span>Visit this page</span>
-									<ExternalLink size={14} />
-								</Link>
-							</small>
+						<CardHeader className="flex-row space-x-4">
+							<img
+								alt={`${link.displayName} Og`}
+								src={link.linkMetadata?.og || "/not-image.jpg"}
+								className="aspect-square w-32 h-32 rounded-md"
+							/>
+							<div>
+								<CardTitle>{link.displayName}</CardTitle>
+								<small className="opacity-50 w-fit">
+									<Link
+										target="_blank"
+										href={`${process.env.NEXT_PUBLIC_DOMAIN}/${link.shortedLink?.shortUrl}?source=Countinkly`}
+										className="flex items-center space-x-0.5 hover:underline"
+									>
+										<span>Visit this page</span>
+										<ExternalLink size={14} />
+									</Link>
+								</small>
+								<CardContent className="px-0 italic">
+									{link.linkMetadata?.description || "Not description provided"}
+								</CardContent>
+							</div>
 						</CardHeader>
-						<CardContent className=" italic">
-							{link.linkMetadata?.description || "Not description provided"}
-						</CardContent>
+
 						<ClientDiscoverCardFooter
 							shortedUrl={link.shortedLink?.shortUrl}
 							likes={link._count.Likes}

@@ -47,7 +47,7 @@ const HomeLinks = ({ isLogged }: { isLogged: boolean }) => {
 					className={buttonVariants({
 						variant: "default",
 						className:
-							"max-md:bg-transparent max-md:text-2xl max-md:p-4 max-md:flex max-md:items-center max-md:space-x-2 max-md:hover:bg-inherit",
+							"max-md:bg-transparent max-md:text-2xl max-md:p-4 max-md:flex max-md:items-center max-md:space-x-2 max-md:hover:bg-inherit max-md:shadow-none",
 					})}
 					href={"/dashboard"}
 				>

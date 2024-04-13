@@ -7,7 +7,7 @@ export const Header = ({ children }: { children: React.ReactNode }) => {
 		<header className="flex backdrop-blur-sm border-b border-gray-500/20 shadow-sm justify-between px-10 h-16 items-center sticky top-0 z-50">
 			<Link href={"/"} className="flex items-center space-x-2">
 				<span className="relative w-10 h-10 max-md:w-8 max-md:h-8">
-					<Image src={blacklogo.src} alt="logo" fill className="maxmd" />
+					<Image src={blacklogo.src} alt="logo" fill />
 				</span>
 				<p className="md:text-xl font-bold">Countinkly</p>
 			</Link>

@@ -18,6 +18,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useFormWithAction } from "@/hooks/use-form-with-action";
 import { addComment } from "@/actions";
 import { commentSchema } from "@/zod";
+import { useRouter } from "next/navigation";
 
 //todo Make a better ui
 
@@ -28,39 +29,47 @@ type Props = {
 
 export function CommentForm({ userId, linkId }: Props) {
 	const addCommentWithArguments = addComment.bind(null, linkId, userId);
+	const router = useRouter();
 
 	const { form, handleAction, isPending } = useFormWithAction(
 		addCommentWithArguments,
 		commentSchema,
 	);
 
+	const handleSubmit = async (values: { [x: string]: any }) => {
+		await handleAction(values);
+		router.refresh();
+	};
+
 	return (
 		<Form {...form}>
 			<form
-				onSubmit={form.handleSubmit(handleAction)}
-				className="w-2/3 space-y-6"
+				onSubmit={form.handleSubmit(handleSubmit)}
+				className="space-y-2 p-4 border border-card-foreground/10 rounded-xl"
 			>
 				<FormField
 					control={form.control}
 					name="content"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Bio</FormLabel>
+							<FormLabel>Leave a comment</FormLabel>
 							<FormControl>
 								<Textarea
-									placeholder="Tell us a little bit about yourself"
+									placeholder="I think this is a great website..."
 									className="resize-none"
 									{...field}
 								/>
 							</FormControl>
 							<FormDescription>
-								You can <span>@mention</span> other users and organizations.
+								Please consider share this website to support the creator
 							</FormDescription>
 							<FormMessage />
 						</FormItem>
 					)}
 				/>
-				<Button type="submit">{isPending ? "Sending..." : "Submit"}</Button>
+				<Button className="w-full" type="submit">
+					{isPending ? "Sending..." : "Comment"}
+				</Button>
 			</form>
 		</Form>
 	);

@@ -24,9 +24,12 @@ export const DashboardUser = ({ user }: { user: User | null }) => {
 		<>
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>
-					<Button variant={"ghost"} className="py-5 px-2 space-x-1">
+					<Button
+						variant={"ghost"}
+						className="py-8 md:py-5 md:px-2 space-x-1 max-md:bg-card-foreground/5"
+					>
 						<span>
-							<Avatar className="h-8 w-8">
+							<Avatar className="h-12 w-12 md:h-8 md:w-8">
 								<AvatarImage
 									src={`https://api.dicebear.com/7.x/bottts-neutral/png?seed=${user?.username}`}
 								/>
@@ -35,7 +38,7 @@ export const DashboardUser = ({ user }: { user: User | null }) => {
 								</AvatarFallback>
 							</Avatar>
 						</span>
-						<p>
+						<p className="max-md:text-2xl">
 							{isPending ? (
 								<span className=" text-destructive animate-pulse">
 									Getting Out
@@ -46,7 +49,7 @@ export const DashboardUser = ({ user }: { user: User | null }) => {
 						</p>
 					</Button>
 				</DropdownMenuTrigger>
-				<DropdownMenuContent className="w-full">
+				<DropdownMenuContent className="w-full max-md:w-60">
 					<DropdownMenuLabel>My Account</DropdownMenuLabel>
 					<DropdownMenuSeparator />
 					<DropdownMenuItem className=" focus:bg-inherit w-full">
