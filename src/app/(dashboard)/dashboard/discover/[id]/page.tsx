@@ -1,4 +1,6 @@
 import { BackButton } from "@/components/dashboard/back-button";
+import { CommentsContainer } from "@/components/discover-feed/comments-container";
+import { CommentForm } from "@/components/forms/comment-form";
 import { validateRequest } from "@/lib/validate-request";
 import { ExternalLink } from "lucide-react";
 import Link from "next/link";
@@ -26,7 +28,7 @@ async function LinkComments({ params }: Props) {
 	});
 
 	return (
-		<section className=" overflow-y-auto py-16 px-4 md:px-10">
+		<section className=" overflow-y-auto py-16 px-4 md:px-10 w-full">
 			<BackButton />
 			<div className="grid">
 				<span>Here goes an image</span>
@@ -39,6 +41,8 @@ async function LinkComments({ params }: Props) {
 					<span>Visit this page</span>
 					<ExternalLink size={14} />
 				</Link>
+				<CommentForm linkId={params.id} userId={user.id} />
+				<CommentsContainer linkId={params.id} userId={user.id} />
 			</div>
 		</section>
 	);

@@ -297,21 +297,30 @@ export async function removeLike(likeId: string) {
 export async function addComment(
 	linkId: string,
 	userId: string,
-	content: string,
+	prevState:any,
+	formData: FormData,
 ) {
-	try {
-		const res = await prisma.comments.create({
-			data: {
-				id: randomUUID(),
-				linkId,
-				userId,
-				content,
-			},
-		});
-	} catch (err) {
-		if (err instanceof Error) {
-			return toast.error(err.message);
+	const content = formData.get('content')
+
+	if (typeof content === 'string') {
+		try {
+			const res = await prisma.comments.create({
+				data: {
+					id: randomUUID(),
+					linkId,
+					userId,
+					content,
+				},
+			});
+	
+			return {message: 'Your Comment was added'
+			}
+		} catch (err) {
+			if (err instanceof Error) {
+				return {error: err.message}
+			}
+			return {error: 'Unknown Error'}
 		}
-		return toast.error("Unknown Error");
 	}
+	return {error: 'Content is missing'}
 }

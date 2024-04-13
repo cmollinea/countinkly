@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -34,7 +34,7 @@
     "lucia": "^3.0.0",
     "lucide-react": "^0.336.0",
     "nanoid": "^5.0.4",
-    "next": "14.1.0",
+    "next": "14.2.0",
     "next-nprogress-bar": "^2.1.2",
     "next-themes": "^0.2.1",
     "oslo": "^1.0.2",

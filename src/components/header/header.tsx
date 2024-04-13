@@ -12,7 +12,8 @@ export const Header = ({ children }: { children: React.ReactNode }) => {
 				<p className="md:text-xl font-bold">Countinkly</p>
 			</Link>
 			<div className="flex space-x-1 items-center">
-				{children} <ThemeToggle />
+				<ThemeToggle />
+				{children}
 			</div>
 		</header>
 	);

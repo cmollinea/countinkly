@@ -14,7 +14,6 @@ import { useFormWithAction } from "@/hooks/use-form-with-action";
 import { addNewLink } from "@/actions";
 import { linkSchema } from "@/zod";
 import { LinkOptionalFields } from "./link-optional-fields";
-import { useEffect } from "react";
 import { useLinkDialog } from "@/hooks/use-link-dialog";
 import { NewLinkDialog } from "../new-link-dialog";
 

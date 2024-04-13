@@ -40,3 +40,7 @@ export const linkSchema = z.object({
   description: z.string().optional(),
   og: z.string().url().optional()
 });
+
+export const commentSchema = z.object({
+  content: z.string().min(1, {message:'Required'})
+})

@@ -14,7 +14,7 @@ export default async function Home() {
 		<>
 			<div className="absolute inset-0 -z-10 h-full w-full bg-background bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#252525_1px/50,transparent_1px),linear-gradient(to_bottom,#252525/50_1px,transparent_1px)] bg-[size:14px_24px]" />
 			<Header>
-				<HomeNav user={user} />
+				<HomeNav isLogged={Boolean(user)} />
 			</Header>
 			<main className="flex flex-col items-center space-y-24 pb-20">
 				<Hero />
