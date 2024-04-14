@@ -23,7 +23,7 @@ export const DiscoverFeed = async ({ userId }: Props) => {
 	});
 
 	return (
-		<ul className="w-full grid gap-4">
+		<section className="w-full grid gap-4">
 			{links?.map((link) => {
 				const likeIndex = userLikes?.findIndex(
 					(like) => like.linkId === link.id,
@@ -73,6 +73,6 @@ export const DiscoverFeed = async ({ userId }: Props) => {
 					</Card>
 				);
 			})}
-		</ul>
+		</section>
 	);
 };

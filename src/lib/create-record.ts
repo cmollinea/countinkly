@@ -6,7 +6,7 @@ export async function createRecord(
 	source: string,
 ) {
 	let country: any;
-	const forwardedFor = headers().get("x-fowwarded-for");
+	const forwardedFor = headers().get("x-forwarded-for");
 	const realIp = headers().get("x-real-ip");
 	if (forwardedFor) {
 		country = fetch(

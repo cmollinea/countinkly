@@ -48,6 +48,7 @@ export const LinkAction = ({
 				shortUrl={shortUrl}
 			/>
 			<DeleteConfirmation
+				deleteAction={deleteAction}
 				openConfirmDelete={openConfirmationDelete}
 				setOpenConfirmDelete={setOpenConfirmationDelete}
 			/>

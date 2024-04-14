@@ -12,6 +12,8 @@ type Props = {
 	};
 };
 
+ Generate metadata for each link, in case there is no metadata do nothing
+
 async function VisitCounter({ params, searchParams }: Props) {
 	const link = await getOriginalUrl(params.id);
 	if (typeof link === "string") {

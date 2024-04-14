@@ -1,6 +1,6 @@
 "use client";
 
-import { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import {
 	Dialog,
 	DialogContent,
@@ -15,11 +15,13 @@ import { AlertTriangle } from "lucide-react";
 type Props = {
 	openConfirmDelete: boolean;
 	setOpenConfirmDelete: Dispatch<SetStateAction<boolean>>;
+	deleteAction: () => void;
 };
 
 export const DeleteConfirmation = ({
 	openConfirmDelete,
 	setOpenConfirmDelete,
+	deleteAction,
 }: Props) => {
 	return (
 		<Dialog open={openConfirmDelete} onOpenChange={setOpenConfirmDelete}>
@@ -36,11 +38,13 @@ export const DeleteConfirmation = ({
 						this link. You will lost all data related to it.
 					</DialogDescription>
 				</DialogHeader>
-				<DialogFooter>
+				<DialogFooter className="max-sm:gap-1">
 					<Button onClick={() => setOpenConfirmDelete(false)} variant={"ghost"}>
 						Cancel
 					</Button>
-					<Button variant={"destructive"}>Delete</Button>
+					<Button onClick={() => deleteAction()} variant={"destructive"}>
+						Delete
+					</Button>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>

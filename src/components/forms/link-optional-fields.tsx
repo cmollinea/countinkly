@@ -22,6 +22,8 @@ type Props = {
 	>;
 };
 
+//TODO Search on React-Hook-Form Docs what to do with optional fields becouse if a user turns on the switch make the fields required
+
 export const LinkOptionalFields = ({ control }: Props) => {
 	const [show, setShow] = useState(false);
 
@@ -85,7 +87,7 @@ export const LinkOptionalFields = ({ control }: Props) => {
 								<FormMessage />
 							</FormItem>
 						)}
-					/>{" "}
+					/>
 				</>
 			) : null}
 		</>

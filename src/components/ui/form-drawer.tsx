@@ -21,8 +21,6 @@ import {
 } from "@/components/ui/drawer";
 import { useState } from "react";
 
-//todo pass state to children in a context and then close drawer if link is succesfully created
-
 export const FormDrawer = ({ children }: { children: React.ReactNode }) => {
 	const [open, setOpen] = useState(false);
 	const isDesktop = useMediaQuery("(min-width: 768px)");

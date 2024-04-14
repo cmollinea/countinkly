@@ -11,7 +11,7 @@ interface Props {
 
 export const ChartCard = ({ children, className }: Props) => {
 	return (
-		<Card className={cn("w-full max-w-md h-full bg-muted/10", className)}>
+		<Card className={cn("w-full lg:max-w-md h-full bg-muted/10", className)}>
 			{children}
 		</Card>
 	);
@@ -45,11 +45,11 @@ export const ChartCardContent = ({ children, className }: Props) => {
 	}, []);
 
 	return (
-		<CardContent className={cn("h-[200px] max-w-md", className)}>
+		<CardContent className={cn("h-[200px] lg:max-w-md", className)}>
 			{ready ? (
 				children
 			) : (
-				<div className={cn("max-w-md w-full", className)}>
+				<div className={cn("lg:max-w-md w-full", className)}>
 					<Skeleton className="h-[190px] w-full" />
 				</div>
 			)}

@@ -40,7 +40,7 @@ async function LinksPage({ params }: Props) {
 	}
 
 	return (
-		<section className="py-16 md:overflow-y-auto w-full px-4 md:px-10 grid gap-10">
+		<section className="py-16 md:overflow-y-auto w-full px-4 md:px-10 grid gap-10 relative">
 			<BackButton />
 			<div>
 				<h1 className=" text-2xl font-bold">

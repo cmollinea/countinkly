@@ -13,16 +13,29 @@ type Props = {
 	open: boolean;
 	setOpen: Dispatch<SetStateAction<boolean>>;
 	shortUrl?: string;
+	ownHeader?: {
+		title: string;
+		description: string;
+	};
 };
 
-export const NewLinkDialog = ({ open, setOpen, shortUrl }: Props) => {
+export const NewLinkDialog = ({
+	open,
+	setOpen,
+	shortUrl,
+	ownHeader,
+}: Props) => {
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogContent className="max-w-xs sm:max-w-sm max-md:px-6">
 				<DialogHeader>
-					<DialogTitle>Share your link</DialogTitle>
+					<DialogTitle>
+						{ownHeader ? ownHeader.title : "Share your link"}
+					</DialogTitle>
 					<DialogDescription>
-						Share each url on your social media
+						{ownHeader
+							? ownHeader.description
+							: "Share each url on your social media"}
 					</DialogDescription>
 				</DialogHeader>
 				{socialMedia.map((item) => {

@@ -51,7 +51,7 @@ const HomeLinks = ({ isLogged }: { isLogged: boolean }) => {
 					})}
 					href={"/dashboard"}
 				>
-					<LayoutDashboard size={28} />
+					<LayoutDashboard className="md:hidden" size={28} />
 					Dashboard
 				</Link>
 			) : (

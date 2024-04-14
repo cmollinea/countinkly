@@ -20,8 +20,6 @@ import { addComment } from "@/actions";
 import { commentSchema } from "@/zod";
 import { useRouter } from "next/navigation";
 
-//todo Make a better ui
-
 type Props = {
 	userId: string;
 	linkId: string;

@@ -37,7 +37,7 @@ export const ClientPieWorldPresenceChart = ({ data }: Props) => {
 							innerRadius={50}
 							outerRadius={80}
 							fill="hsl(236 79% 62%)"
-							paddingAngle={2}
+							paddingAngle={5}
 							stroke="hsl(236 79% 62%)"
 						/>
 						<Tooltip />
