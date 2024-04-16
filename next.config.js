@@ -6,6 +6,7 @@ const nextConfig = {
   },
   experimental: {
     missingSuspenseWithCSRBailout: false,
+    serverComponentsExternalPackages: ["oslo"],
     turbo: {
       resolveAlias: {
         underscore: 'lodash',

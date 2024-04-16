@@ -1,3 +1,4 @@
+'use client'
 import { useRouter } from "next-nprogress-bar";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useCallback, useState, useTransition } from "react";
