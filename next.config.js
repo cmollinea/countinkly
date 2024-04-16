@@ -5,6 +5,7 @@ const nextConfig = {
     return config;
   },
   experimental: {
+    missingSuspenseWithCSRBailout: false,
     turbo: {
       resolveAlias: {
         underscore: 'lodash',

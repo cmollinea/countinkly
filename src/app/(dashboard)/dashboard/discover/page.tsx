@@ -32,7 +32,11 @@ const Discover = async ({ searchParams }: Props) => {
 					<small className="opacity-50">Support others sharing! </small>
 
 					<Handshake size={14} className=" place-self-center opacity-50" />
-					{totalPages > 1 && <Pagination totalPages={totalPages} />}
+					{totalPages > 1 && (
+						<Suspense fallback={<p>Loading...</p>}>
+							<Pagination totalPages={totalPages} />
+						</Suspense>
+					)}
 				</div>
 				<Suspense fallback={<DiscoverSkelleton />} key={currentPage}>
 					<DiscoverFeed currentpage={currentPage} userId={user.id} />
