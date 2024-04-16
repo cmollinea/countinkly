@@ -5,11 +5,13 @@ import { ExternalLink } from "lucide-react";
 
 type Props = {
 	userId: string;
+	currentpage: number;
 };
 
-export const DiscoverFeed = async ({ userId }: Props) => {
+export const DiscoverFeed = async ({ userId, currentpage }: Props) => {
 	const links = await prisma?.link.findMany({
-		take: 20,
+		take: 10,
+		skip: (currentpage - 1) * 10,
 		include: {
 			_count: { select: { Likes: true, Comments: true } },
 			linkMetadata: true,

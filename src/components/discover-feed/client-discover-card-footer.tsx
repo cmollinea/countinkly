@@ -73,24 +73,32 @@ export const ClientDiscoverCardFooter = ({
 	};
 
 	return (
-		<CardFooter className="text-sm gap-4 justify-between place-content-center items-center select-none border-t border-card-foreground/10 py-0">
+		<CardFooter className="text-sm gap-4 justify-around place-content-center items-center select-none border-t border-card-foreground/10 py-1">
 			<Link
 				href={`${pathname}/${linkId}`}
-				className="flex items-center py-2 gap-0.5 hover:text-primary transition-colors ease-in-out group place-content-center w-full"
+				className="flex items-center py-2 gap-0.5 hover:bg-primary/5 hover:text-primary transition-colors ease-in-out group place-content-center w-fit rounded-full p-0.5"
 			>
 				<MessageSquareText size={20} /> <span>{comments}</span>
 			</Link>
 
-			<div className="flex items-center py-2 place-content-center w-full">
-				<ShareButton shortedUrl={shortedUrl || ""} />
+			<div className="flex items-center py-2 place-content-center cursor-pointer hover:bg-green-500/5 transition-all ease-in-out p-0.5 rounded-full hover:text-green-500 h-9 w-9">
+				<ShareButton
+					className="hover:text-green-500"
+					shortedUrl={shortedUrl || ""}
+					ownHeader={{
+						title: "Share this link",
+						description:
+							"Support the owner by sharing this page on your social media using Countinkly",
+					}}
+				/>
 			</div>
-			<div className="flex items-center py-2 gap-0.5 place-content-center w-full">
+			<div className="flex items-center py-2 gap-0.5 place-content-center w-fit hover:text-red-500 transition-colors ease-in-out cursor-pointer hover:bg-red-500/5 p-0.5 rounded-full">
 				<Heart
 					size={20}
 					onClick={() => handleLike()}
 					className={`${
 						isLiked ? "text-red-500 fill-red-500" : ""
-					} transition-all ease-out cursor-pointer active:scale-95 hover:text-red-500`}
+					} transition-all ease-out  active:scale-95 `}
 				/>
 				<span>{likesCount}</span>
 			</div>

@@ -2,7 +2,6 @@ import { LinksTable } from "@/components/tables";
 import { getUserLinks } from "@/lib/get-user-links";
 import { validateRequest } from "@/lib/validate-request";
 import { redirect } from "next/navigation";
-//TODO Use a loading.tsx for this route
 
 async function LinksPage() {
 	const { user } = await validateRequest();

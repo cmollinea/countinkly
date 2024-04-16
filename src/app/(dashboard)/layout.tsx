@@ -29,7 +29,7 @@ async function DashboardLayout({ children }: { children: React.ReactNode }) {
 					</div>
 				</SmNav>
 			</Header>
-			<section className="flex md:h-[calc(100vh-64px)] w-full">
+			<section className="flex max-md:min-h-[calc(100vh-64px)] md:h-[calc(100vh-64px)] w-full">
 				<DashboardNav />
 				{children}
 			</section>

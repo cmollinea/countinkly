@@ -1,11 +1,13 @@
 import { BackButton } from "@/components/dashboard/back-button";
-import { CommentsContainer } from "@/components/discover-feed/comments-container";
-import { ShareButton } from "@/components/discover-feed/share-button";
 import { CommentForm } from "@/components/forms/comment-form";
-import { validateRequest } from "@/lib/validate-request";
+import { CommentsContainer } from "@/components/discover-feed/comments-container";
+import { CommentSkeleton } from "@/components/skeletons/comments-skeleton";
 import { ExternalLink } from "lucide-react";
-import Link from "next/link";
 import { redirect } from "next/navigation";
+import { ShareButton } from "@/components/discover-feed/share-button";
+import { Suspense } from "react";
+import { validateRequest } from "@/lib/validate-request";
+import Link from "next/link";
 
 type Props = {
 	params: { id: string };
@@ -34,6 +36,7 @@ async function LinkComments({ params }: Props) {
 			<div className="lg:flex lg:justify-between max-md:grid max-md:gap-12 max-md:mt-6">
 				<div className="lg:max-w-xl lg:w-full grid h-fit gap-8 pt-14">
 					<div className="flex space-x-4 relative">
+						{/* eslint-disable-next-line @next/next/no-img-element */}
 						<img
 							alt={`${link?.displayName} Og`}
 							src={link?.linkMetadata?.og || "/not-image.jpg"}
@@ -54,7 +57,9 @@ async function LinkComments({ params }: Props) {
 					</div>
 					<CommentForm linkId={params.id} userId={user.id} />
 				</div>
-				<CommentsContainer linkId={params.id} userId={user.id} />
+				<Suspense fallback={<CommentSkeleton />}>
+					<CommentsContainer linkId={params.id} userId={user.id} />
+				</Suspense>
 			</div>
 		</section>
 	);
