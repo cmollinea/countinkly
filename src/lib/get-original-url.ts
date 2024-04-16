@@ -1,3 +1,5 @@
+import prisma from "@/lib/prisma";
+
 export async function getOriginalUrl(shortId: string) {
 	try {
 		const shortUrl = await prisma?.shortedLink.findFirst({

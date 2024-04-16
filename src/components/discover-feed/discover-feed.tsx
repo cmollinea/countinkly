@@ -2,6 +2,7 @@ import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 import { ClientDiscoverCardFooter } from "./client-discover-card-footer";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
+import prisma from "@/lib/prisma";
 
 type Props = {
 	userId: string;

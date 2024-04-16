@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { Toaster } from "sonner";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -19,7 +20,9 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={`${GeistSans.className} relative`}>
 				<ThemeProvider attribute="class" defaultTheme="light">
-					<ProgressBar />
+					<Suspense fallback={null}>
+						<ProgressBar />
+					</Suspense>{" "}
 					<Toaster />
 					{children}
 				</ThemeProvider>

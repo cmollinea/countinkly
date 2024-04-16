@@ -1,4 +1,5 @@
 import { ClientPieSocialMediaChart } from "./client-pie-socialmedia-chart";
+import prisma from "@/lib/prisma";
 
 type Props = {
 	userId: string;

@@ -1,4 +1,5 @@
 import { ClientLinkPieWorldPresence } from "./client-link-pie-world-presence";
+import prisma from "@/lib/prisma";
 
 type Props = {
 	linkId: string;
