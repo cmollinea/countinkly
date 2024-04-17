@@ -1,4 +1,5 @@
 import { ClientLinkPieSocialMediaChart } from "./client-link-pie-socialmedia";
+import prisma from "@/lib/prisma";
 
 type Props = {
 	linkId: string;

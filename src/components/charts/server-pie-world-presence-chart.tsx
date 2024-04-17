@@ -1,3 +1,4 @@
+import prisma from "@/lib/prisma";
 import { ClientPieWorldPresenceChart } from "./client-pie-world-presence-chart";
 
 type Props = {

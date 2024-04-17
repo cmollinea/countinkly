@@ -1,3 +1,5 @@
+import prisma from "@/lib/prisma";
+
 export async function incrementView(linkId: string) {
   const data = await prisma?.link.update({
     where: { id: linkId },

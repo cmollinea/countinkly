@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import { MessageCircleDashed, Trash2 } from "lucide-react";
+import prisma from "@/lib/prisma";
 
 type Props = {
 	linkId: string;

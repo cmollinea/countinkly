@@ -8,6 +8,7 @@ import { ShareButton } from "@/components/discover-feed/share-button";
 import { Suspense } from "react";
 import { validateRequest } from "@/lib/validate-request";
 import Link from "next/link";
+import prisma from "@/lib/prisma";
 
 type Props = {
 	params: { id: string };

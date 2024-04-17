@@ -5,6 +5,7 @@ import { validateRequest } from "@/lib/validate-request";
 import { Handshake } from "lucide-react";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
+import prisma from "@/lib/prisma";
 
 type Props = {
 	searchParams: {
