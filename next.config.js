@@ -5,7 +5,6 @@ const nextConfig = {
     return config;
   },
   experimental: {
-    serverComponentsExternalPackages: ["oslo"],
     turbo: {
       resolveAlias: {
         underscore: 'lodash',
