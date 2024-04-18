@@ -1,14 +1,15 @@
 "use server";
-import prisma from "@/lib/prisma";
 import { Argon2id } from "oslo/password";
 import { cookies } from "next/headers";
-import { lucia } from "@/lib/auth";
-import { redirect } from "next/navigation";
 import { generateId } from "lucia";
-import { nanoid, random } from "nanoid";
+import { lucia } from "@/lib/auth";
+import { nanoid } from "nanoid";
 import { randomUUID } from "crypto";
+import { redirect } from "next/navigation";
 import { validateRequest } from "@/lib/validate-request";
-import { toast } from "sonner";
+//@ts-expect-error
+import bcrypt from "bcrypt";
+import prisma from "@/lib/prisma";
 
 export interface ActionResult {
 	error?: string;
@@ -66,7 +67,7 @@ export async function signup(
 		};
 	}
 
-	const hashedPassword = await new Argon2id().hash(password);
+	const hashedPassword = await bcrypt.hash(password, 10);
 	const userId = generateId(15);
 
 	await prisma.user.create({
@@ -139,9 +140,9 @@ export async function login(
 		};
 	}
 
-	const validPassword = await new Argon2id().verify(
-		existingUser.hashedPassword,
+	const validPassword = await bcrypt.compare(
 		password,
+		existingUser.hashedPassword,
 	);
 	if (!validPassword) {
 		return {
@@ -297,12 +298,12 @@ export async function removeLike(likeId: string) {
 export async function addComment(
 	linkId: string,
 	userId: string,
-	prevState:any,
+	prevState: any,
 	formData: FormData,
 ) {
-	const content = formData.get('content')
+	const content = formData.get("content");
 
-	if (typeof content === 'string') {
+	if (typeof content === "string") {
 		try {
 			const res = await prisma.comments.create({
 				data: {
@@ -312,15 +313,30 @@ export async function addComment(
 					content,
 				},
 			});
-	
-			return {message: 'Your Comment was added'
-			}
+
+			return { message: "Your Comment was added" };
 		} catch (err) {
 			if (err instanceof Error) {
-				return {error: err.message}
+				return { error: err.message };
 			}
-			return {error: 'Unknown Error'}
+			return { error: "Unknown Error" };
 		}
 	}
-	return {error: 'Content is missing'}
+	return { error: "Content is missing" };
+}
+
+export async function removeComment(id: string) {
+	try {
+		const res = await prisma.comments.delete({
+			where: {
+				id,
+			},
+		});
+		return { message: "Your comment was deleted" };
+	} catch (err) {
+		if (err instanceof Error) {
+			return { error: err.message };
+		}
+		return { error: "Unknown Error" };
+	}
 }
