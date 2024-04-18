@@ -10,18 +10,26 @@ export async function createRecord(
 	let country: any;
 	const forwardedFor = headers().get("x-forwarded-for");
 	const realIp = headers().get("x-real-ip");
-	if (forwardedFor) {
-		country = fetch(
-			`http://ip-api.com/json/${forwardedFor.split(",")[0].trim()}`,
-		)
-			.then((res) => res.json())
-			.then((data) => data.country);
-	} else if (realIp) {
-		country = fetch(`http://ip-api.com/json/${realIp.trim()}`)
-			.then((res) => res.json())
-			.then((data) => data.country);
-	} else {
-		country = "Unknown";
+
+	try {
+		if (forwardedFor || realIp) {
+			const res = await fetch(
+				`http://ip-api.com/json/${forwardedFor ? forwardedFor.split(",")[0].trim() : realIp ? realIp.trim() : ''}`,
+			)
+			if(!res.ok) {
+				throw new Error('Unknown Error')
+			}
+			country = await res.json()
+
+			if (country.data.origin.status === 'fail') {
+				throw new Error('Unknown Error')
+			}
+				
+		}  else {
+			country = "Unknown";
+		}
+	} catch (err) {
+		country = 'Unknown'
 	}
 
 	const record = await prisma?.clicks.create({

@@ -47,7 +47,9 @@ export const DiscoverFeed = async ({ userId, currentpage }: Props) => {
 								<small className="opacity-50 w-fit">
 									<Link
 										target="_blank"
-										href={`${process.env.NEXT_PUBLIC_DOMAIN}/${link.shortedLink?.shortUrl}?source=Countinkly`}
+										href={`${
+											process.env.NEXT_PUBLIC_DOMAIN || process.env.VERCEL_URL
+										}/${link.shortedLink?.shortUrl}?source=Countinkly`}
 										className="flex items-center space-x-0.5 hover:underline"
 									>
 										<span>Visit this page</span>

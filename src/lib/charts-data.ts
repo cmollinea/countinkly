@@ -6,16 +6,12 @@ type AccountGrouth = {
 };
 
 export async function getAccountGrouth(userId: string) {
-	const data = await prisma.$queryRaw<
-		AccountGrouth[]
-	>`SELECT DATE("timestamp") as date, COUNT(*) as count from prisma."Clicks" where "userId" = ${userId} GROUP BY DATE("timestamp")`;
+	const data = await prisma.$queryRaw<AccountGrouth[]>`SELECT DATE("timestamp") as date, COUNT(*) as count from "Clicks" where "userId" = ${userId} GROUP BY DATE("timestamp")`;
 	return data;
 }
 
 export async function getLinkGrouth(linkId: string) {
-	const data = await prisma.$queryRaw<
-		AccountGrouth[]
-	>`SELECT DATE("timestamp") as date, COUNT(*) as count from prisma."Clicks" where "linkId" = ${linkId} GROUP BY DATE("timestamp")`;
+	const data = await prisma.$queryRaw<AccountGrouth[]>`SELECT DATE("timestamp") as date, COUNT(*) as count from "Clicks" where "linkId" = ${linkId} GROUP BY DATE("timestamp")`;
 	return data;
 }
 

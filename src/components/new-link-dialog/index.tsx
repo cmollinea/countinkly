@@ -39,7 +39,9 @@ export const NewLinkDialog = ({
 					</DialogDescription>
 				</DialogHeader>
 				{socialMedia.map((item) => {
-					const url = `${process.env.NEXT_PUBLIC_DOMAIN}/${shortUrl}?source=${item.title}`;
+					const url = `${
+						process.env.NEXT_PUBLIC_DOMAIN || process.env.VERCEL_URL
+					}/${shortUrl}?source=${item.title}`;
 					return <SocialLink url={url} Icon={item.icon} key={item.title} />;
 				})}
 			</DialogContent>
