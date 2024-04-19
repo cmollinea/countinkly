@@ -19,6 +19,8 @@ As a relatively new frontend developer, every time I complete a project, I share
 
 - View through intuitive graphics how many clicks you obtain on each link you decide to track with Countinkly.
 
+> 📝 If you're going to track a link, Countinkly provides you with the opportunity to use your own metadata, ensuring that your brand visibility is maintained while sharing using Countinkly.
+
 - Additionally, a section (Discover) has been created to display the links that Countinkly tracks, where users can comment, like, and help link owners by sharing sites they find interesting through Countinkly.
 
 ## Roadmap
