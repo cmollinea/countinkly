@@ -9,6 +9,9 @@ import { getLinkCountries, getLinkTotalCLicks } from "@/lib/get-clicks";
 import { CalculatorIcon, Globe2Icon } from "lucide-react";
 import { ClicksTable } from "@/components/tables/clicks-table";
 import { BackButton } from "@/components/dashboard/back-button";
+import { Suspense } from "react";
+import { ClicksCardSkeleton } from "@/components/skeletons/clicks-cards-skeleton";
+import { ChartsSkeleton } from "@/components/skeletons/charts-skeletons";
 
 type Props = {
 	params: {
@@ -51,30 +54,40 @@ async function LinksPage({ params }: Props) {
 			<div className="flex flex-col items-center place-content-center space-y-5 w-full">
 				<div className="flex max-lg:space-y-5 max-lg:flex-col lg:space-x-5 w-full max-w-screen-2xl">
 					<div className="flex flex-col space-y-5 w-full">
-						<ClicksCard
-							id={link.id}
-							title={`${link.displayName} Total Clicks`}
-							clicksGetter={getLinkTotalCLicks}
-							Icon={CalculatorIcon}
-						/>
-						<ClicksCard
-							id={link.id}
-							title={`${link.displayName} Reached Countries`}
-							clicksGetter={getLinkCountries}
-							Icon={Globe2Icon}
-						/>
+						<Suspense fallback={<ClicksCardSkeleton />}>
+							<ClicksCard
+								id={link.id}
+								title={`${link.displayName} Total Clicks`}
+								clicksGetter={getLinkTotalCLicks}
+								Icon={CalculatorIcon}
+							/>
+						</Suspense>
+						<Suspense fallback={<ClicksCardSkeleton />}>
+							<ClicksCard
+								id={link.id}
+								title={`${link.displayName} Reached Countries`}
+								clicksGetter={getLinkCountries}
+								Icon={Globe2Icon}
+							/>
+						</Suspense>
 					</div>
-					<ServerLinkPieWorldPresence
-						linkId={link.id}
-						name={link.displayName}
-					/>
-					<ServerLinkPieSocialMediaChart
-						linkId={link.id}
-						name={link.displayName}
-					/>
+					<Suspense fallback={<ChartsSkeleton className="h-full" />}>
+						<ServerLinkPieWorldPresence
+							linkId={link.id}
+							name={link.displayName}
+						/>
+					</Suspense>
+					<Suspense fallback={<ChartsSkeleton className="h-full" />}>
+						<ServerLinkPieSocialMediaChart
+							linkId={link.id}
+							name={link.displayName}
+						/>
+					</Suspense>
 				</div>
-				<div className="max-h-fit w-full flex items-center place-content-center">
-					<ServerLinkGrouth linkId={link.id} />
+				<div className="max-h-fit w-full">
+					<Suspense fallback={<ChartsSkeleton className="max-w-full" />}>
+						<ServerLinkGrouth linkId={link.id} />
+					</Suspense>
 				</div>
 			</div>
 			<div className="grid gap-5">

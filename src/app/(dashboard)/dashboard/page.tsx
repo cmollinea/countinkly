@@ -15,6 +15,8 @@ import { ServerPieSocialMediaChart } from "@/components/charts/server-pie-social
 import { ServerPieWorldPresence } from "@/components/charts/server-pie-world-presence-chart";
 import { validateRequest } from "@/lib/validate-request";
 import { Suspense } from "react";
+import { ClicksCardSkeleton } from "@/components/skeletons/clicks-cards-skeleton";
+import { ChartsSkeleton } from "@/components/skeletons/charts-skeletons";
 
 export default async function Page() {
 	const { user } = await validateRequest();
@@ -38,7 +40,7 @@ export default async function Page() {
 
 			<DashboardContainer>
 				<div className="flex flex-col space-y-4 lg:max-w-md w-full">
-					<Suspense fallback={<p>Loading...</p>}>
+					<Suspense fallback={<ClicksCardSkeleton />}>
 						<ClicksCard
 							id={user.id}
 							title="Clicks earned Today"
@@ -46,7 +48,7 @@ export default async function Page() {
 							clicksGetter={getDailyClicks}
 						/>
 					</Suspense>
-					<Suspense fallback={<p>Loading...</p>}>
+					<Suspense fallback={<ClicksCardSkeleton />}>
 						<ClicksCard
 							id={user.id}
 							title="Total clicks earned "
@@ -56,7 +58,7 @@ export default async function Page() {
 					</Suspense>
 				</div>
 				<div className="flex flex-col space-y-4 lg:max-w-md w-full">
-					<Suspense fallback={<p>Loading...</p>}>
+					<Suspense fallback={<ClicksCardSkeleton />}>
 						<ClicksCard
 							id={user.id}
 							title="Link Count"
@@ -64,7 +66,7 @@ export default async function Page() {
 							clicksGetter={getLinks}
 						/>
 					</Suspense>
-					<Suspense fallback={<p>Loading...</p>}>
+					<Suspense fallback={<ClicksCardSkeleton />}>
 						<ClicksCard
 							id={user.id}
 							title="Reached Countries"
@@ -73,17 +75,19 @@ export default async function Page() {
 						/>
 					</Suspense>
 				</div>
-				<ServerAccountGrouth userId={user.id} />
+				<Suspense fallback={<ChartsSkeleton className="h-[360px] mt-4" />}>
+					<ServerAccountGrouth userId={user.id} />
+				</Suspense>
 			</DashboardContainer>
 
 			<DashboardContainer>
-				<Suspense fallback={<p>Loading...</p>}>
+				<Suspense fallback={<ChartsSkeleton />}>
 					<ServerLinksBarchar userId={user.id} />
 				</Suspense>
-				<Suspense fallback={<p>Loading...</p>}>
+				<Suspense fallback={<ChartsSkeleton />}>
 					<ServerPieWorldPresence userId={user.id} />
 				</Suspense>
-				<Suspense fallback={<p>Loading...</p>}>
+				<Suspense fallback={<ChartsSkeleton />}>
 					<ServerPieSocialMediaChart userId={user.id} />
 				</Suspense>
 			</DashboardContainer>

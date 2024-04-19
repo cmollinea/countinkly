@@ -17,8 +17,9 @@ export const ServerLinkGrouth = async ({ linkId }: Props) => {
 	});
 
 	return (
-		<>
-			<GrouthChart className="max-w-screen-2xl" data={parsedData} />{" "}
-		</>
+		<GrouthChart
+			className="max-w-screen-2xl w-full lg:max-w-full"
+			data={parsedData}
+		/>
 	);
 };

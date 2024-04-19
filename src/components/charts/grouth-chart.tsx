@@ -33,7 +33,7 @@ export const GrouthChart = ({ data, className }: Props) => {
 					<TrendingUpIcon />
 				</ChartCardIcon>{" "}
 			</ChartCardHeader>
-			<ChartCardContent className=" max-w-screen-2xl">
+			<ChartCardContent className=" max-w-screen-2xl lg:max-w-full w-full">
 				<ResponsiveContainer height={"100%"} width={"100%"}>
 					<LineChart data={data}>
 						<XAxis label={"Clicks"} dataKey="date" className="text-xs" hide />
