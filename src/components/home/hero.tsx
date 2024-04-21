@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import heroContent from "@/content/hero.json";
+import { GithubIcon, SparklesIcon } from "lucide-react";
 
 export const Hero = () => {
 	return (
@@ -25,6 +26,7 @@ export const Hero = () => {
 							className={buttonVariants({ variant: "default", size: "lg" })}
 							href="/sign-up"
 						>
+							<SparklesIcon size={16} />
 							{heroContent.primaryButton}
 						</Link>
 
@@ -37,6 +39,7 @@ export const Hero = () => {
 							href="https://github.com/cmollinea/countinkly"
 							target="_blank"
 						>
+							<GithubIcon size={16} />
 							{heroContent.secondaryButtton}
 						</Link>
 					</div>

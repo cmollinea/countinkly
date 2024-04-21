@@ -10,7 +10,7 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@/components/ui/sheet";
-import { Home, LayoutDashboard, MenuIcon } from "lucide-react";
+import { Home, LayoutDashboard, LogIn, MenuIcon, UserPlus } from "lucide-react";
 import { SmNav } from "./sm-nav";
 
 type Props = {
@@ -36,37 +36,43 @@ const HomeLinks = ({ isLogged }: { isLogged: boolean }) => {
 	return (
 		<>
 			<Link
-				className="max-md:text-2xl max-md:p-4 max-md:flex max-md:items-center max-md:space-x-2"
+				className="max-md:text-2xl max-md:p-4 max-md:flex max-md:items-center max-md:space-x-1"
 				href={"/"}
 			>
 				<Home size={28} className="md:hidden" />
-				Home
+				<span>Home</span>
 			</Link>
 			{isLogged ? (
 				<Link
 					className={buttonVariants({
 						variant: "default",
 						className:
-							"max-md:bg-transparent max-md:text-2xl max-md:p-4 max-md:flex max-md:items-center max-md:space-x-2 max-md:hover:bg-inherit max-md:shadow-none",
+							"max-md:bg-transparent max-md:text-2xl max-md:p-4 max-md:flex max-md:items-center max-md:space-x-1 max-md:hover:bg-inherit max-md:shadow-none",
 					})}
 					href={"/dashboard"}
 				>
 					<LayoutDashboard className="md:hidden" size={28} />
-					Dashboard
+					<span>Dashboard</span>
 				</Link>
 			) : (
 				<>
-					<Link className="max-md:text-2xl" href={"/log-in"}>
-						Log In
+					<Link
+						className="max-md:text-2xl max-md:p-4 max-md:flex max-md:items-center max-md:space-x-1"
+						href={"/log-in"}
+					>
+						<LogIn className="md:hidden" size={28} />
+						<span>Log In</span>
 					</Link>
 					<Link
 						className={buttonVariants({
 							variant: "default",
-							className: "max-md:text-2xl",
+							className:
+								"max-md:text-2xl max-md:p-4 max-md:flex max-md:items-center max-md:space-x-1 max-md:hover:bg-inherit max-md:shadow-none max-md:font-normal max-md:py-8",
 						})}
 						href={"/sign-up"}
 					>
-						Sign Up
+						<UserPlus className="md:hidden" size={28} />
+						<span>Sign Up</span>
 					</Link>
 				</>
 			)}

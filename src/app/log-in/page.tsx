@@ -35,9 +35,9 @@ export default function LogIn() {
 				<div className="py-8 px-4 shadow sm:rounded-lg sm:px-10">
 					<LogInForm />
 					<div className="flex flex-col w-full mt-4 items-center place-content-center">
-						<Button variant={"outline"} size={"lg"} className="w-full">
+						<Button variant={"outline"} size={"lg"} disabled className="w-full">
 							<Github />
-							Use Github
+							<span>Use Github (Soon)</span>
 						</Button>
 					</div>
 				</div>

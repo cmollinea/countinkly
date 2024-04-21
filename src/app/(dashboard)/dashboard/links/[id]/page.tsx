@@ -1,5 +1,5 @@
 import { validateRequest } from "@/lib/validate-request";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
 import { ServerLinkGrouth } from "@/components/charts/server-link-grouth";
 import { ServerLinkPieSocialMediaChart } from "@/components/charts/server-link-pie-socialmedia-chart";
@@ -12,6 +12,7 @@ import { BackButton } from "@/components/dashboard/back-button";
 import { Suspense } from "react";
 import { ClicksCardSkeleton } from "@/components/skeletons/clicks-cards-skeleton";
 import { ChartsSkeleton } from "@/components/skeletons/charts-skeletons";
+import { Unauthorized } from "@/components/errors/unauthorized";
 
 type Props = {
 	params: {
@@ -35,11 +36,11 @@ async function LinksPage({ params }: Props) {
 	const clicks = await prisma.clicks.findMany({ where: { linkId: params.id } });
 
 	if (!link) {
-		return <p>404</p>;
+		return notFound();
 	}
 
 	if (link.userId !== user.id) {
-		return <p>Unauthorized</p>;
+		return <Unauthorized />;
 	}
 
 	return (

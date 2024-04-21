@@ -1,7 +1,7 @@
 import { createRecord } from "@/lib/create-record";
 import { getOriginalUrl } from "@/lib/get-original-url";
 import { incrementView } from "@/lib/increment-view";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 type Props = {
 	params: {
@@ -15,7 +15,7 @@ type Props = {
 async function VisitCounter({ params, searchParams }: Props) {
 	const link = await getOriginalUrl(params.id);
 	if (typeof link === "string") {
-		return <p>{link}</p>;
+		return notFound();
 	}
 
 	createRecord(link.id, link.userId, searchParams.source || "Unknown");
