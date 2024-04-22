@@ -48,7 +48,8 @@ export const DiscoverFeed = async ({ userId, currentpage }: Props) => {
 									<Link
 										target="_blank"
 										href={`${
-											process.env.NEXT_PUBLIC_DOMAIN || process.env.VERCEL_URL
+											process.env.NEXT_PUBLIC_VERCEL_URL ||
+											process.env.NEXT_PUBLIC_DOMAIN
 										}/${link.shortedLink?.shortUrl}?source=Countinkly`}
 										className="flex items-center space-x-0.5 hover:underline"
 									>
