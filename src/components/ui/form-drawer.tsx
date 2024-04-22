@@ -29,7 +29,7 @@ export const FormDrawer = ({ children }: { children: React.ReactNode }) => {
 		return (
 			<Dialog open={open} onOpenChange={setOpen}>
 				<DialogTrigger asChild>
-					<Button variant="outline">Add new Link</Button>
+					<Button>Add new Link</Button>
 				</DialogTrigger>
 				<DialogContent className="sm:max-w-[425px] max-md:px-6">
 					<DialogHeader>

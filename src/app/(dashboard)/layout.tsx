@@ -6,8 +6,13 @@ import {
 import { DashboardUser } from "@/components/navigation/dashboard-user";
 import { SmNav } from "@/components/navigation/sm-nav";
 import { validateRequest } from "@/lib/validate-request";
-import Link from "next/link";
 import { redirect } from "next/navigation";
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "Dashboard | Countinkly",
+};
 
 async function DashboardLayout({ children }: { children: React.ReactNode }) {
 	const { user } = await validateRequest();

@@ -33,6 +33,7 @@ As a relatively new frontend developer, every time I complete a project, I share
 ## Known Issues
 
 - It seems that when using transitions with server actions, if an action fails, the transitions are not marked as completed.
+- If you mark 'Use your own metadata' in the new link form, and then for any reason you change your mind and unmark this options react-hook-form still tracking those fields and validating, I am currently searching at the docs how to stop tracking those fields based on user choice.
 - The function that handles the origin of the request is not working at this moment. (Currently working)
   
 ## Contributing

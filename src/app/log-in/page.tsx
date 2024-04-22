@@ -5,6 +5,14 @@ import Link from "next/link";
 import logo from "$/public/iPhone-180x180px.png";
 import { LogInForm } from "@/components/forms/log-in-form";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "Your Links are Waiting for You | Countinkly",
+	description:
+		"Countinkly, log in to see your links data and discover new stuff",
+};
+
 export default function LogIn() {
 	return (
 		<div className="min-h-screen bg-background flex flex-col justify-center py-12 sm:px-6 lg:px-8 px-6">
@@ -35,9 +43,9 @@ export default function LogIn() {
 				<div className="py-8 px-4 shadow sm:rounded-lg sm:px-10">
 					<LogInForm />
 					<div className="flex flex-col w-full mt-4 items-center place-content-center">
-						<Button variant={"outline"} size={"lg"} className="w-full">
+						<Button variant={"outline"} size={"lg"} disabled className="w-full">
 							<Github />
-							Use Github
+							<span>Use Github (Soon)</span>
 						</Button>
 					</div>
 				</div>

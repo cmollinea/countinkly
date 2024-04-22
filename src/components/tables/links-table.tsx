@@ -13,6 +13,7 @@ import {
 import { useLinkAction } from "@/hooks/use-link-actions";
 import { LinkAction } from "./link-actions";
 import { LoadingIndicator } from "../navigation/loading-indicator";
+import Link from "next/link";
 
 type Props = {
 	links: {
@@ -49,7 +50,11 @@ export function LinksTable({ links }: Props) {
 				<TableBody>
 					{links.map((link) => (
 						<TableRow key={link.displayName} className="">
-							<TableCell className="font-medium">{link.displayName}</TableCell>
+							<TableCell className="font-medium">
+								<Link href={`/dashboard/links/${link.id}`}>
+									{link.displayName}
+								</Link>
+							</TableCell>
 
 							<TableCell className="flex gap-1 items-center place-content-center">
 								<LinkAction

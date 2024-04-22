@@ -1,3 +1,4 @@
+import { AddLinkForm } from "@/components/forms/add-link-form";
 import { LinksTable } from "@/components/tables";
 import { getUserLinks } from "@/lib/get-user-links";
 import { validateRequest } from "@/lib/validate-request";
@@ -24,7 +25,10 @@ async function LinksPage() {
 
 	return (
 		<section className="py-16 md:overflow-y-auto w-full">
-			<div className="flex place-content-center items-center w-full px-4 lg:px-20">
+			<div className="flex flex-col place-content-center items-center w-full px-4 lg:px-20">
+				<span className=" self-end">
+					<AddLinkForm userId={user.id} />
+				</span>
 				<LinksTable links={linksData} />
 			</div>
 		</section>
