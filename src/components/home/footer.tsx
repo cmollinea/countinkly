@@ -26,7 +26,7 @@ export const Footer = () => {
 						<Link
 							className="hover:text-primary transition-colors ease-in-out hover:underline"
 							target="_blank"
-							href="https://procastinatordev.vercel.app"
+							href="https://countinkly.vercel.app/wfsZpe6X6W?source=Countinkly"
 						>
 							<small>Made by @proc4astinator</small>
 						</Link>
