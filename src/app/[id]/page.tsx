@@ -57,15 +57,7 @@ async function VisitCounter({ params, searchParams }: Props) {
 	let country;
 
 	if (forwardedFor || realIp) {
-		const res = await fetch(
-			`http://ip-api.com/json/${
-				forwardedFor
-					? forwardedFor.split(",")[0].trim()
-					: realIp
-					  ? realIp.trim()
-					  : ""
-			}`,
-		);
+		const res = await fetch(`http://ip-api.com/json/${forwardedFor || realIp}`);
 		if (!res.ok) {
 			throw new Error("Unknown Error");
 		}
