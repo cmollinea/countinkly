@@ -3,7 +3,7 @@ import { CommentForm } from "@/components/forms/comment-form";
 import { CommentsContainer } from "@/components/discover-feed/comments-container";
 import { CommentSkeleton } from "@/components/skeletons/comments-skeleton";
 import { ExternalLink } from "lucide-react";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { ShareButton } from "@/components/discover-feed/share-button";
 import { Suspense } from "react";
 import { validateRequest } from "@/lib/validate-request";
@@ -31,6 +31,10 @@ async function LinkComments({ params }: Props) {
 		},
 	});
 
+	if (!link) {
+		return notFound();
+	}
+
 	return (
 		<section className="max-lg:px-4 md:pl-10 w-full overflow-y-auto lg:overflow-y-hidden relative">
 			<BackButton />
@@ -49,8 +53,9 @@ async function LinkComments({ params }: Props) {
 								target="_blank"
 								className="opacity-50 w-fit flex items-center space-x-0.5 hover:underline"
 								href={`${
-									process.env.NEXT_PUBLIC_DOMAIN || process.env.VERCEL_URL
-								}/${link?.shortedLink?.shortUrl}?source=Countinkly`}
+									process.env.NEXT_PUBLIC_VERCEL_URL ||
+									process.env.NEXT_PUBLIC_DOMAIN
+								}}/${link?.shortedLink?.shortUrl}?source=Countinkly`}
 							>
 								<span>Visit this page</span>
 								<ExternalLink size={14} />

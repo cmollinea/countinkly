@@ -4,6 +4,13 @@ import { SignUpForm } from "@/components/forms/sign-up-form";
 import { signUpBgImage } from "@/constants/images";
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "Create an account today! | Countinkly",
+	description:
+		"Get started with Countinkly and let us track your visits for you",
+};
 
 export default function SignUp() {
 	return (

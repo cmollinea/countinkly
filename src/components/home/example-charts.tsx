@@ -84,8 +84,8 @@ export const ExampleCharts = () => {
 	}, []);
 
 	return (
-		<section className="flex w-full items-start place-content-center max-lg:items-center max-lg:flex-col lg:space-x-20">
-			<div className="max-w-md">
+		<section className="flex w-full items-start place-content-center max-lg:items-center max-lg:flex-col lg:space-x-20 px-4">
+			<div className="max-w-screen-2xl md:max-w-md">
 				<h3 className="text-4xl font-extrabold">
 					<span className="text-primary">Countinkly&apos;s</span> Display of
 					Analytics through{" "}
@@ -95,14 +95,14 @@ export const ExampleCharts = () => {
 				</h3>
 			</div>
 			{show ? (
-				<div className="flex flex-col items-center place-content-center space-y-4 max-w-md w-full max-lg:mt-10">
-					<Card className="w-full max-w-md">
+				<div className="flex flex-col items-center place-content-center space-y-4 max-w-screen-2xl md:max-w-md w-full max-lg:mt-10">
+					<Card className="w-full max-w-screen-2xl md:max-w-md">
 						<CardHeader>
 							<CardTitle className="font-semibold text-xl">
 								Your Total <span className="text-primary">Grouth</span>
 							</CardTitle>
 						</CardHeader>
-						<CardContent className="h-[180px] md:h-[200px] max-w-md w-full">
+						<CardContent className="h-[180px] md:h-[200px] max-w-screen-2xl md:max-w-md w-full">
 							<ResponsiveContainer height={"100%"} width={"100%"}>
 								<LineChart data={data}>
 									<XAxis dataKey="name" className="text-xs" hide />
@@ -117,13 +117,13 @@ export const ExampleCharts = () => {
 							</ResponsiveContainer>
 						</CardContent>
 					</Card>
-					<Card className="w-full max-w-md">
+					<Card className="w-full max-w-screen-2xl md:max-w-md">
 						<CardHeader>
 							<CardTitle className="font-semibold text-xl">
 								Daily <span className="text-primary">Visits</span>
 							</CardTitle>
 						</CardHeader>
-						<CardContent className="h-[180px] md:h-[200px] max-w-md w-full">
+						<CardContent className="h-[180px] md:h-[200px] max-w-screen-2xl md:max-w-md w-full">
 							<ResponsiveContainer height={"100%"} width={"100%"}>
 								<BarChart data={barData}>
 									<XAxis dataKey="name" className="text-xs" hide />
@@ -137,11 +137,11 @@ export const ExampleCharts = () => {
 					</Card>
 				</div>
 			) : (
-				<div className="flex flex-col items-center space-y-4 max-w-md w-full max-lg:mt-10">
-					<div className=" max-w-md w-full">
+				<div className="flex flex-col items-center space-y-4 max-w-screen-2xl md:max-w-md w-full max-lg:mt-10">
+					<div className=" max-w-screen-2xl md:max-w-md w-full">
 						<Skeleton className="h-[240px] md:h-[280px] w-full" />
 					</div>
-					<div className="max-w-md w-full">
+					<div className="max-w-screen-2xl md:max-w-md w-full">
 						<Skeleton className="h-[240px] md:h-[280px] w-full" />
 					</div>
 				</div>

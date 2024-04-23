@@ -19,20 +19,20 @@ export const LinkAction = ({
 	return (
 		<>
 			<Button
-				onClick={() => setOpenLinkInfo(true)}
-				className="h-7 w-7 hover:bg-primary hover:text-primary-foreground transition-all ease-linear"
-				variant={"outline"}
-				size={"icon"}
-			>
-				<Share2Icon size={16} />
-			</Button>
-			<Button
 				className="h-7 w-7 hover:bg-primary hover:text-primary-foreground transition-all ease-linear"
 				onClick={navigateAction}
 				variant={"outline"}
 				size={"icon"}
 			>
 				<InfoIcon size={16} />
+			</Button>
+			<Button
+				onClick={() => setOpenLinkInfo(true)}
+				className="h-7 w-7 hover:bg-primary hover:text-primary-foreground transition-all ease-linear"
+				variant={"outline"}
+				size={"icon"}
+			>
+				<Share2Icon size={16} />
 			</Button>
 			<Button
 				onClick={() => setOpenConfirmationDelete(true)}
