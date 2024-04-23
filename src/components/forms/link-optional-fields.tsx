@@ -7,25 +7,33 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-import { Control } from "react-hook-form";
+import { UseFormReturn } from "react-hook-form";
 import { Input } from "../ui/input";
 import { Switch } from "../ui/switch";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { Label } from "../ui/label";
 
 type Props = {
-	control: Control<
+	form: UseFormReturn<
 		{
 			[x: string]: any;
 		},
-		any
+		any,
+		undefined
 	>;
 };
 
-//TODO Search on React-Hook-Form Docs what to do with optional fields becouse if a user turns on the switch make the fields required
+//TODO Refactor the function that handles the unregister
 
-export const LinkOptionalFields = ({ control }: Props) => {
+export const LinkOptionalFields = ({ form }: Props) => {
 	const [show, setShow] = useState(false);
+
+	const handleCheck = () => {
+		if (show) {
+			form.unregister(["title", "description", "og"]);
+		}
+		setShow((prev) => !prev);
+	};
 
 	return (
 		<>
@@ -35,13 +43,13 @@ export const LinkOptionalFields = ({ control }: Props) => {
 				<Switch
 					id="switch"
 					checked={show}
-					onCheckedChange={() => setShow((prev) => !prev)}
+					onCheckedChange={() => handleCheck()}
 				/>
 			</span>
 			{show ? (
 				<>
 					<FormField
-						control={control}
+						control={form.control}
 						name="title"
 						defaultValue=""
 						render={({ field }) => (
@@ -55,7 +63,7 @@ export const LinkOptionalFields = ({ control }: Props) => {
 						)}
 					/>
 					<FormField
-						control={control}
+						control={form.control}
 						name="description"
 						defaultValue=""
 						render={({ field }) => (
@@ -72,7 +80,7 @@ export const LinkOptionalFields = ({ control }: Props) => {
 						)}
 					/>
 					<FormField
-						control={control}
+						control={form.control}
 						name="og"
 						defaultValue=""
 						render={({ field }) => (

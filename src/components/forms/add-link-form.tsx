@@ -19,7 +19,6 @@ import { NewLinkDialog } from "../new-link-dialog";
 
 export function AddLinkForm({ userId }: { userId: string }) {
 	const handleAddNewLink = addNewLink.bind(null, userId);
-
 	const { form, formState, isPending, handleAction } = useFormWithAction(
 		handleAddNewLink,
 		linkSchema,
@@ -71,7 +70,7 @@ export function AddLinkForm({ userId }: { userId: string }) {
 							)}
 						/>
 
-						<LinkOptionalFields control={form.control} />
+						<LinkOptionalFields form={form} />
 
 						<Button
 							disabled={isPending}
