@@ -15,6 +15,9 @@ export const metadata: Metadata = {
 		name: "@proc4stinator",
 		url: "https://procastinatordev.vercel.app",
 	},
+	icons: `${
+		process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_DOMAIN
+	}/favicon.ico`,
 	openGraph: {
 		title: "Countinkly | Your Link Tracking Powerhouse",
 		description:
