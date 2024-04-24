@@ -61,6 +61,7 @@ export function AddLinkForm({ userId }: { userId: string }) {
 									<FormLabel>URL</FormLabel>
 									<FormControl>
 										<Input
+											inputMode="url"
 											placeholder="https://procastinatordev.vercel.app"
 											{...field}
 										/>
