@@ -88,6 +88,7 @@ export const LinkOptionalFields = ({ form }: Props) => {
 								<FormLabel>OG</FormLabel>
 								<FormControl>
 									<Input
+										inputMode="url"
 										placeholder="A secure URL to your site metadata image"
 										{...field}
 									/>

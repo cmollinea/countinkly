@@ -46,7 +46,7 @@ export const LogInForm = () => {
 						<FormItem>
 							<FormLabel>Password</FormLabel>
 							<FormControl>
-								<Input placeholder="Your Password" {...field} />
+								<Input type="password" placeholder="Your Password" {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
