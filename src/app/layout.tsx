@@ -15,15 +15,24 @@ export const metadata: Metadata = {
 		name: "@proc4stinator",
 		url: "https://procastinatordev.vercel.app",
 	},
+	icons: `${
+		process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_DOMAIN
+	}/favicon.ico`,
 	openGraph: {
 		title: "Countinkly | Your Link Tracking Powerhouse",
 		description:
 			"The Open Source and User-Friendly Link Tracking Solution that Streamlines Your Analytics Journey",
+		images: `${
+			process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_DOMAIN
+		}/og.png`,
 	},
 	twitter: {
 		title: "Countinkly | Your Link Tracking Powerhouse",
 		description:
 			"The Open Source and User-Friendly Link Tracking Solution that Streamlines Your Analytics Journey",
+		images: `${
+			process.env.NEXT_PUBLIC_VERCEL_URL || process.env.NEXT_PUBLIC_DOMAIN
+		}/og.png`,
 	},
 };
 
