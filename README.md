@@ -29,6 +29,7 @@ As a relatively new frontend developer, every time I complete a project, I share
 - [ ] Password Recovery
 - [ ] Tags on discover
 - [ ] Users can add their own source
+- [ ] Use Data Table to display large amount of data (Clicks Table)
 
 ## Known Issues
 
