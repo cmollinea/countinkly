@@ -55,7 +55,7 @@ async function LinkComments({ params }: Props) {
 								href={`${
 									process.env.NEXT_PUBLIC_VERCEL_URL ||
 									process.env.NEXT_PUBLIC_DOMAIN
-								}}/${link?.shortedLink?.shortUrl}?source=Countinkly`}
+								}/${link?.shortedLink?.shortUrl}?source=Countinkly`}
 							>
 								<span>Visit this page</span>
 								<ExternalLink size={14} />
