@@ -1,82 +1,61 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import {
-	Area,
-	AreaChart,
-	Bar,
-	BarChart,
-	Cell,
-	ResponsiveContainer,
-	Tooltip,
-	XAxis,
-	YAxis,
-	Legend,
-} from "recharts";
-import { Skeleton } from "../ui/skeleton";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { getChartColor } from "@/lib/chart-colors";
+	ChartContainer,
+	ChartLegend,
+	ChartLegendContent,
+	ChartTooltip,
+	ChartTooltipContent,
+	type ChartConfig,
+} from "@/components/ui/chart";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Area, AreaChart, Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 
-const data = [
-	{
-		name: "Day 0",
-		Visits: 20,
-	},
-	{
-		name: "Day 1",
-		Visits: 40,
-	},
-	{
-		name: "Day 2",
-		Visits: 80,
-	},
-	{
-		name: "Day 3",
-		Visits: 160,
-	},
-	{
-		name: "Day 4",
-		Visits: 320,
-	},
-	{
-		name: "Day 5",
-		Visits: 640,
-	},
-	{
-		name: "Day 6",
-		Visits: 1280,
-	},
+const areaData = [
+	{ name: "Day 0", Visits: 20 },
+	{ name: "Day 1", Visits: 40 },
+	{ name: "Day 2", Visits: 80 },
+	{ name: "Day 3", Visits: 160 },
+	{ name: "Day 4", Visits: 320 },
+	{ name: "Day 5", Visits: 640 },
+	{ name: "Day 6", Visits: 1280 },
 ];
 
-const barData = [
-	{
-		name: "Your Link 0",
-		Visits: 20,
-	},
-	{
-		name: "Your Link 1",
-		Visits: 40,
-	},
-	{
-		name: "Your Link 2",
-		Visits: 80,
-	},
-	{
-		name: "Your Link 3",
-		Visits: 20,
-	},
-	{
-		name: "Your Link 4",
-		Visits: 50,
-	},
-	{
-		name: "Your Link 5",
-		Visits: 86,
-	},
-	{
-		name: "Your Link 6",
-		Visits: 45,
-	},
+const barDataRaw = [
+	{ name: "Your Link 0", Visits: 20 },
+	{ name: "Your Link 1", Visits: 40 },
+	{ name: "Your Link 2", Visits: 80 },
+	{ name: "Your Link 3", Visits: 20 },
+	{ name: "Your Link 4", Visits: 50 },
+	{ name: "Your Link 5", Visits: 86 },
+	{ name: "Your Link 6", Visits: 45 },
 ];
+const barData = barDataRaw.map((d, i) => ({
+	...d,
+	fillKey: `bar${i}`,
+	fill: `var(--color-bar${i})`,
+}));
+
+const areaChartConfig = {
+	name: { label: "Day" },
+	Visits: {
+		label: "Visits",
+		color: "var(--chart-1)",
+	},
+} satisfies ChartConfig;
+
+const barChartConfig = {
+	Visits: { label: "Visits" },
+	bar0: { label: "Your Link 0", color: "var(--chart-1)" },
+	bar1: { label: "Your Link 1", color: "var(--chart-2)" },
+	bar2: { label: "Your Link 2", color: "var(--chart-3)" },
+	bar3: { label: "Your Link 3", color: "var(--chart-4)" },
+	bar4: { label: "Your Link 4", color: "var(--chart-5)" },
+	bar5: { label: "Your Link 5", color: "var(--chart-6)" },
+	bar6: { label: "Your Link 6", color: "var(--chart-7)" },
+} satisfies ChartConfig;
 
 export const ExampleCharts = () => {
 	const [show, setShow] = useState(false);
@@ -105,28 +84,27 @@ export const ExampleCharts = () => {
 							</CardTitle>
 						</CardHeader>
 						<CardContent className="h-[180px] md:h-[200px] max-w-screen-2xl md:max-w-md w-full">
-							<ResponsiveContainer height={"100%"} width={"100%"}>
-								<AreaChart data={data}>
+							<ChartContainer config={areaChartConfig} className="aspect-auto h-full w-full">
+								<AreaChart data={areaData} accessibilityLayer>
 									<defs>
 										<linearGradient id="exampleAreaFill" x1="0" y1="0" x2="0" y2="1">
-											<stop offset="0%" stopColor={getChartColor(0)} stopOpacity={0.4} />
-											<stop offset="100%" stopColor={getChartColor(0)} stopOpacity={0} />
+											<stop offset="5%" stopColor="var(--color-Visits)" stopOpacity={0.8} />
+											<stop offset="95%" stopColor="var(--color-Visits)" stopOpacity={0.1} />
 										</linearGradient>
 									</defs>
-									<XAxis dataKey="name" className="text-xs" hide />
-									<YAxis hide />
-									<Tooltip wrapperClassName="text-black" />
-									<Legend />
+									<CartesianGrid vertical={false} />
+									<XAxis dataKey="name" tickLine={false} axisLine={false} tickMargin={8} hide />
+									<ChartTooltip cursor={false} content={<ChartTooltipContent indicator="dot" />} />
 									<Area
-										type="monotone"
+										type="natural"
 										dataKey="Visits"
-										stroke={getChartColor(0)}
-										strokeWidth={2}
 										fill="url(#exampleAreaFill)"
-										activeDot={{ r: 6, fill: getChartColor(0) }}
+										stroke="var(--color-Visits)"
+										strokeWidth={2}
 									/>
+									<ChartLegend content={<ChartLegendContent />} />
 								</AreaChart>
-							</ResponsiveContainer>
+							</ChartContainer>
 						</CardContent>
 					</Card>
 					<Card className="w-full max-w-screen-2xl md:max-w-md rounded-2xl shadow-sm border-border/50">
@@ -136,25 +114,26 @@ export const ExampleCharts = () => {
 							</CardTitle>
 						</CardHeader>
 						<CardContent className="h-[180px] md:h-[200px] max-w-screen-2xl md:max-w-md w-full">
-							<ResponsiveContainer height={"100%"} width={"100%"}>
-								<BarChart data={barData}>
-									<XAxis dataKey="name" className="text-xs" hide />
-									<YAxis hide />
-									<Tooltip wrapperClassName="text-black" />
-									<Legend />
-									<Bar dataKey="Visits">
-										{barData.map((_, i) => (
-											<Cell key={i} fill={getChartColor(i)} />
-										))}
-									</Bar>
+							<ChartContainer config={barChartConfig} className="aspect-auto h-full w-full">
+								<BarChart data={barData} accessibilityLayer margin={{ top: 8, right: 8, bottom: 8, left: 8 }}>
+									<CartesianGrid vertical={false} />
+									<XAxis dataKey="name" tickLine={false} axisLine={false} tickMargin={8} hide />
+									<ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+									<Bar
+										dataKey="Visits"
+										nameKey="fillKey"
+										fill="fill"
+										radius={[4, 4, 0, 0]}
+										strokeWidth={0}
+									/>
 								</BarChart>
-							</ResponsiveContainer>
+							</ChartContainer>
 						</CardContent>
 					</Card>
 				</div>
 			) : (
 				<div className="flex flex-col items-center space-y-4 max-w-screen-2xl md:max-w-md w-full max-lg:mt-10">
-					<div className=" max-w-screen-2xl md:max-w-md w-full">
+					<div className="max-w-screen-2xl md:max-w-md w-full">
 						<Skeleton className="h-[240px] md:h-[280px] w-full" />
 					</div>
 					<div className="max-w-screen-2xl md:max-w-md w-full">
