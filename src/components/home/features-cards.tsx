@@ -1,7 +1,7 @@
 "use client";
 
-import { ShieldCheck, Unlock, Users2, ViewIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ShieldCheck, Unlock, ViewIcon } from "lucide-react";
 
 const cards = [
 	{
@@ -25,24 +25,28 @@ const cards = [
 
 export const FeaturesCard = () => {
 	return (
-		<section className="grid lg:grid-cols-3 max-w-fit gap-y-4 lg:gap-y-24 w-full place-content-center lg:space-x-4 px-4">
-			<div className="bg-primary w-full  flex place-content-center py-10 rounded-xl shadow-md lg:col-span-3 mx-auto">
-				<h3 className="font-bold text-3xl md:text-4xl text-primary-foreground">
+		<section className="grid lg:grid-cols-3 gap-8 lg:gap-12 w-full place-content-center px-4 max-w-6xl mx-auto">
+			<div className="bg-primary w-full flex place-content-center py-12 rounded-2xl shadow-sm lg:col-span-3">
+				<h2 className="font-heading font-bold text-3xl md:text-4xl text-primary-foreground tracking-tight">
 					Track, Analyze, Grow
-				</h3>
+				</h2>
 			</div>
 			{cards.map((card) => (
-				<Card key={card.title} className="lg:max-w-sm relative overflow-hidden">
-					<CardHeader className="">
-						<CardTitle className="flex items-center space-x-2 pl-5 pb-2 ">
-							{" "}
-							<card.icon size={32} /> <p>{card.title}</p>
+				<Card
+					key={card.title}
+					className="rounded-2xl border border-border/60 shadow-sm hover:shadow-md transition-shadow overflow-hidden"
+				>
+					<CardHeader>
+						<CardTitle className="font-heading flex items-center gap-3 text-xl font-semibold">
+							<card.icon size={28} className="text-primary shrink-0" />
+							{card.title}
 						</CardTitle>
-						<CardContent className="pb-0">
-							<p>{card.content}</p>
-						</CardContent>
 					</CardHeader>
-					<span className="h-28 w-28 bg-primary/50 rounded-full absolute -top-4 -left-4 blur-3xl dark:block hidden" />
+					<CardContent>
+						<p className="text-muted-foreground leading-relaxed">
+							{card.content}
+						</p>
+					</CardContent>
 				</Card>
 			))}
 		</section>

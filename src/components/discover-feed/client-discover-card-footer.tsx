@@ -73,7 +73,7 @@ export const ClientDiscoverCardFooter = ({
 	};
 
 	return (
-		<CardFooter className="text-sm gap-4 justify-around place-content-center items-center select-none border-t border-card-foreground/10 py-1">
+		<CardFooter className="text-sm gap-4 justify-around place-content-center items-center select-none border-t border-border/50 py-3">
 			<Link
 				href={`${pathname}/${linkId}`}
 				className="flex items-center py-2 gap-0.5 hover:bg-primary/5 hover:text-primary transition-colors ease-in-out group place-content-center w-fit rounded-full p-0.5"

@@ -38,29 +38,33 @@ async function LinkComments({ params }: Props) {
 	return (
 		<section className="max-lg:px-4 md:pl-10 w-full overflow-y-auto lg:overflow-y-hidden relative">
 			<BackButton />
-			<div className="lg:flex lg:justify-between max-md:grid max-md:gap-12 max-md:mt-6">
-				<div className="lg:max-w-xl lg:w-full grid h-fit gap-8 pt-14">
-					<div className="flex space-x-4 relative">
+			<div className="mx-auto max-w-5xl lg:flex lg:justify-between max-md:grid max-md:gap-12 max-md:mt-6 pt-14">
+				<div className="lg:max-w-xl lg:w-full grid h-fit gap-8">
+					<div className="rounded-2xl border border-border/60 bg-card shadow-sm p-5 flex flex-wrap gap-4">
 						{/* eslint-disable-next-line @next/next/no-img-element */}
 						<img
 							alt={`${link?.displayName} Og`}
 							src={link?.linkMetadata?.og || "/not-image.jpg"}
-							className="aspect-square w-32 h-32 rounded-md"
+							className="aspect-square w-28 h-28 sm:w-32 sm:h-32 rounded-xl object-cover shrink-0"
 						/>
-						<div className="space-y-1">
-							<span className=" text-2xl font-bold">{link?.displayName}</span>
+						<div className="min-w-0 flex-1 space-y-2">
+							<h1 className="font-heading text-2xl font-bold tracking-tight">
+								{link?.displayName}
+							</h1>
 							<Link
 								target="_blank"
-								className="opacity-50 w-fit flex items-center space-x-0.5 hover:underline"
+								className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-primary hover:underline w-fit"
 								href={`${
 									process.env.NEXT_PUBLIC_VERCEL_URL ||
 									process.env.NEXT_PUBLIC_DOMAIN
 								}/${link?.shortedLink?.shortUrl}?source=Countinkly`}
 							>
-								<span>Visit this page</span>
+								Visit this page
 								<ExternalLink size={14} />
 							</Link>
-							<ShareButton shortedUrl={link?.shortedLink?.shortUrl || ""} />
+							<div className="pt-1">
+								<ShareButton shortedUrl={link?.shortedLink?.shortUrl || ""} />
+							</div>
 						</div>
 					</div>
 					<CommentForm linkId={params.id} userId={user.id} />

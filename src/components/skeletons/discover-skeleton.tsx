@@ -1,32 +1,30 @@
-import { Card, CardContent, CardHeader } from "../ui/card";
+import { Card, CardHeader } from "../ui/card";
 import { Skeleton } from "../ui/skeleton";
 
-const a = [0, 1, 2];
+const placeholders = [0, 1, 2];
 
 export const DiscoverSkelleton = () => {
 	return (
-		<section className="w-full grid gap-4">
-			{a.map((a) => (
+		<section className="w-full grid gap-6">
+			{placeholders.map((i) => (
 				<Card
-					className="w-full place-self-center bg-card/50 border-card-foreground/20 max-w-3xl"
-					key={a}
+					className="w-full rounded-2xl border border-border/60 shadow-sm"
+					key={i}
 				>
-					<CardHeader className="flex-row space-x-4">
-						<Skeleton>
-							<div className="w-32 h-32 rounded-md" />
-						</Skeleton>
-						<div className="w-2/3 grid rounded-md gap-2 h-fit">
-							<Skeleton>
-								<div className="w-full h-8 rounded-md" />
-							</Skeleton>
-							<Skeleton>
-								<div className="w-full h-4 rounded-md" />
-							</Skeleton>
-							<Skeleton>
-								<div className="w-full h-4 rounded-md" />
-							</Skeleton>
+					<CardHeader className="flex-row gap-5 pb-3">
+						<Skeleton className="w-28 h-28 sm:w-32 sm:h-32 rounded-xl shrink-0" />
+						<div className="flex-1 grid gap-2 min-w-0">
+							<Skeleton className="h-6 w-3/4 rounded-md" />
+							<Skeleton className="h-4 w-32 rounded-md" />
+							<Skeleton className="h-4 w-full rounded-md" />
+							<Skeleton className="h-4 w-full rounded-md" />
 						</div>
 					</CardHeader>
+					<div className="flex gap-4 justify-around border-t border-border/50 py-3">
+						<Skeleton className="h-8 w-16 rounded-md" />
+						<Skeleton className="h-8 w-16 rounded-md" />
+						<Skeleton className="h-8 w-16 rounded-md" />
+					</div>
 				</Card>
 			))}
 		</section>

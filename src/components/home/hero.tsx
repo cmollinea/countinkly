@@ -6,40 +6,41 @@ import { GithubIcon, SparklesIcon } from "lucide-react";
 
 export const Hero = () => {
 	return (
-		<section className="">
-			<div className="mx-auto max-w-screen-xl px-4 py-32 flex items-center h-[calc(100vh-64px)]">
+		<section>
+			<div className="mx-auto max-w-screen-xl px-4 py-32 flex items-center min-h-[calc(100vh-64px)]">
 				<div className="mx-auto max-w-3xl text-center">
 					<h1
-						// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+						// biome-ignore lint/security/noDangerouslySetInnerHtml: content from CMS
 						dangerouslySetInnerHTML={{ __html: heroContent.title }}
-						className="text-3xl font-black sm:text-6xl py-4"
+						className="font-heading text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl py-4 leading-tight"
 					/>
-
 					<p
-						// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+						// biome-ignore lint/security/noDangerouslySetInnerHtml: content from CMS
 						dangerouslySetInnerHTML={{ __html: heroContent.shortDescription }}
-						className="mx-auto mt-4 max-w-xl sm:text-xl/relaxed"
+						className="mx-auto mt-5 max-w-xl text-lg text-muted-foreground sm:text-xl leading-relaxed"
 					/>
-
-					<div className="mt-8 flex flex-wrap justify-center gap-4">
+					<div className="mt-10 flex flex-wrap justify-center gap-4">
 						<Link
-							className={buttonVariants({ variant: "default", size: "lg" })}
+							className={buttonVariants({
+								variant: "default",
+								size: "lg",
+								className: "rounded-xl font-semibold",
+							})}
 							href="/sign-up"
 						>
-							<SparklesIcon size={16} />
+							<SparklesIcon size={18} />
 							{heroContent.primaryButton}
 						</Link>
-
 						<Link
 							className={buttonVariants({
 								variant: "outline",
 								size: "lg",
-								className: " text-foreground",
+								className: "rounded-xl text-foreground font-medium hover:bg-muted",
 							})}
 							href="https://github.com/cmollinea/countinkly"
 							target="_blank"
 						>
-							<GithubIcon size={16} />
+							<GithubIcon size={18} />
 							{heroContent.secondaryButtton}
 						</Link>
 					</div>

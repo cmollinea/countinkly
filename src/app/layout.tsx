@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ProgressBar } from "@/components/ui/progress-bar";
 import { Toaster } from "sonner";
 import { Suspense } from "react";
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+	subsets: ["latin"],
+	variable: "--font-heading",
+});
 
 export const metadata: Metadata = {
 	title: "Countinkly | Your Link Tracking Powerhouse",
@@ -42,7 +48,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="en">
+		<html lang="en" className={plusJakartaSans.variable}>
 			<body className={`${GeistSans.className} relative`}>
 				<ThemeProvider attribute="class" defaultTheme="light">
 					<Suspense fallback={null}>

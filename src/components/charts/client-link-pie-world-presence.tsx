@@ -7,7 +7,8 @@ import {
 	ChartCardIcon,
 	ChartCardTitle,
 } from "./chart-card";
-import { Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { getChartColor } from "@/lib/chart-colors";
 
 type Props = {
 	data: {
@@ -22,10 +23,8 @@ export const ClientLinkPieWorldPresence = ({
 	name,
 	className,
 }: Props) => {
-	let keys: [string, string | number][] | undefined;
-	if (data[0]) {
-		keys = Object.entries(data[0]);
-	}
+	const keys = data[0] ? (Object.entries(data[0]) as [string, string | number][]) : undefined;
+
 	return (
 		<ChartCard className={className}>
 			<ChartCardHeader>
@@ -44,10 +43,13 @@ export const ClientLinkPieWorldPresence = ({
 								data={data}
 								innerRadius={50}
 								outerRadius={80}
-								fill="hsl(236 79% 62%)"
 								paddingAngle={5}
-								stroke="hsl(236 79% 62%)"
-							/>
+								stroke="transparent"
+							>
+								{data.map((_, i) => (
+									<Cell key={i} fill={getChartColor(i)} />
+								))}
+							</Pie>
 							<Tooltip />
 						</PieChart>
 					</ResponsiveContainer>

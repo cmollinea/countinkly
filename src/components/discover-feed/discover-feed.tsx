@@ -1,8 +1,9 @@
-import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ClientDiscoverCardFooter } from "./client-discover-card-footer";
-import Link from "next/link";
-import { ExternalLink } from "lucide-react";
+import { getChartColorFromString } from "@/lib/chart-colors";
 import prisma from "@/lib/prisma";
+import { ExternalLink } from "lucide-react";
+import Link from "next/link";
 
 type Props = {
 	userId: string;
@@ -26,43 +27,44 @@ export const DiscoverFeed = async ({ userId, currentpage }: Props) => {
 	});
 
 	return (
-		<section className="w-full grid gap-4">
+		<section className="w-full grid gap-6">
 			{links?.map((link) => {
 				const likeIndex = userLikes?.findIndex(
 					(like) => like.linkId === link.id,
 				);
+				const accentColor = getChartColorFromString(link.id);
 				return (
 					<Card
-						className="w-full place-self-center bg-card/50 border-card-foreground/20 max-w-3xl"
+						className="w-full rounded-2xl border border-border/60 bg-card shadow-sm transition-shadow hover:shadow-md hover:border-primary/20"
+						style={{ borderLeftWidth: "4px", borderLeftColor: accentColor }}
 						key={link.id}
 					>
-						<CardHeader className="flex-row space-x-4">
+						<CardHeader className="flex-row gap-5 pb-3">
 							<img
 								alt={`${link.displayName} Og`}
 								src={link.linkMetadata?.og || "/not-image.jpg"}
-								className="aspect-square w-32 h-32 rounded-md"
+								className="aspect-square w-28 h-28 sm:w-32 sm:h-32 rounded-xl object-cover shrink-0"
 							/>
-							<div>
-								<CardTitle>{link.displayName}</CardTitle>
-								<small className="opacity-50 w-fit">
-									<Link
-										target="_blank"
-										href={`${
-											process.env.NEXT_PUBLIC_VERCEL_URL ||
-											process.env.NEXT_PUBLIC_DOMAIN
-										}/${link.shortedLink?.shortUrl}?source=Countinkly`}
-										className="flex items-center space-x-0.5 hover:underline"
-									>
-										<span>Visit this page</span>
-										<ExternalLink size={14} />
-									</Link>
-								</small>
-								<CardContent className="px-0 italic">
-									{link.linkMetadata?.description || "Not description provided"}
+							<div className="min-w-0 flex-1 grid gap-1">
+								<CardTitle className="font-heading text-lg font-semibold leading-tight">
+									{link.displayName}
+								</CardTitle>
+								<Link
+									target="_blank"
+									href={`${
+										process.env.NEXT_PUBLIC_VERCEL_URL ||
+										process.env.NEXT_PUBLIC_DOMAIN
+									}/${link.shortedLink?.shortUrl}?source=Countinkly`}
+									className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-primary hover:underline w-fit"
+								>
+									Visit this page
+									<ExternalLink size={14} />
+								</Link>
+								<CardContent className="px-0 pt-1 text-sm text-muted-foreground leading-relaxed italic">
+									{link.linkMetadata?.description || "No description provided"}
 								</CardContent>
 							</div>
 						</CardHeader>
-
 						<ClientDiscoverCardFooter
 							shortedUrl={link.shortedLink?.shortUrl}
 							likes={link._count.Likes}

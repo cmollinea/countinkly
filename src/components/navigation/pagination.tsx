@@ -2,6 +2,7 @@
 
 import { Button } from "../ui/button";
 import { usePagination } from "@/hooks/use-pagination";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 type Props = {
 	totalPages: number;
@@ -12,21 +13,31 @@ export const Pagination = ({ totalPages }: Props) => {
 		usePagination();
 
 	return (
-		<div className="flex items-center place-content-center mt-6 gap-2">
+		<div className="flex items-center justify-center gap-3 mt-2">
 			<Button
-				variant={"outline"}
-				disabled={currentPage <= 1}
+				variant="outline"
+				size="sm"
+				className="rounded-lg"
+				disabled={currentPage <= 1 || isPending}
 				onClick={() => handleNavigation("prev")}
 			>
+				<ChevronLeft size={16} />
+				<span className="sr-only">Previous</span>
 				{isPending && navigatingTo === "prev" ? "..." : "Prev"}
 			</Button>
-			<small>{currentPage}</small>
+			<span className="text-sm font-medium text-muted-foreground min-w-[6rem] text-center">
+				Page {currentPage} of {totalPages}
+			</span>
 			<Button
-				variant={"outline"}
-				disabled={currentPage >= totalPages}
+				variant="outline"
+				size="sm"
+				className="rounded-lg"
+				disabled={currentPage >= totalPages || isPending}
 				onClick={() => handleNavigation("next")}
 			>
 				{isPending && navigatingTo === "next" ? "..." : "Next"}
+				<ChevronRight size={16} />
+				<span className="sr-only">Next</span>
 			</Button>
 		</div>
 	);
