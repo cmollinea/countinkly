@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import {
 	ChartContainer,
 	ChartTooltip,
@@ -78,10 +79,10 @@ export const ClientLinkPieWorldPresence = ({
 				<ChartCardTitle>{name} World Presence</ChartCardTitle>
 				<ChartCardIcon><Globe /></ChartCardIcon>
 			</ChartCardHeader>
-			<ChartCardContent className={className}>
+			<ChartCardContent className={cn("flex flex-col min-h-0", className)}>
 				<ChartContainer
 					config={chartConfig}
-					className="mx-auto aspect-square max-h-[250px] w-full"
+					className="mx-auto aspect-square max-h-[180px] w-full max-w-full shrink-0"
 				>
 					<PieChart>
 						<ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />

@@ -1,6 +1,6 @@
 import { DiscoverFeed } from "@/components/discover-feed/discover-feed";
 import { Pagination } from "@/components/navigation/pagination";
-import { DiscoverSkelleton } from "@/components/skeletons/discover-skeleton";
+import { DiscoverSkeleton } from "@/components/skeletons/discover-skeleton";
 import { validateRequest } from "@/lib/validate-request";
 import { Handshake, Link2 } from "lucide-react";
 import { redirect } from "next/navigation";
@@ -20,12 +20,13 @@ const Discover = async ({ searchParams }: Props) => {
 	}
 
 	const linkCount = (await prisma?.link.count()) || 0;
-	const totalPages = Math.max(1, Math.ceil(linkCount / 10));
+	const perPage = 20;
+	const totalPages = Math.max(1, Math.ceil(linkCount / perPage));
 	const currentPage = searchParams.page ? Number(searchParams.page) : 1;
 
 	return (
 		<section className="w-full px-4 overflow-y-auto">
-			<div className="mx-auto max-w-4xl grid gap-12 py-16 h-fit">
+			<div className="mx-auto max-w-6xl grid gap-12 py-16 h-fit">
 				<div className="text-center grid gap-6">
 					<div className="grid gap-2">
 						<h1 className="text-3xl font-heading font-bold tracking-tight sm:text-4xl text-foreground">
@@ -49,7 +50,7 @@ const Discover = async ({ searchParams }: Props) => {
 					)}
 				</div>
 				<div className="grid gap-6">
-					<Suspense fallback={<DiscoverSkelleton />} key={currentPage}>
+					<Suspense fallback={<DiscoverSkeleton />} key={currentPage}>
 						<DiscoverFeed currentpage={currentPage} userId={user.id} />
 					</Suspense>
 				</div>

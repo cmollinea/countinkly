@@ -72,10 +72,10 @@ export const ClientPieSocialMediaChart = ({ data }: Props) => {
 				<ChartCardTitle>Social Media Relation</ChartCardTitle>
 				<ChartCardIcon><Network /></ChartCardIcon>
 			</ChartCardHeader>
-			<ChartCardContent>
+			<ChartCardContent className="flex flex-col min-h-0">
 				<ChartContainer
 					config={chartConfig}
-					className="mx-auto aspect-square max-h-[250px] w-full"
+					className="mx-auto aspect-square max-h-[180px] w-full max-w-full shrink-0"
 				>
 					<PieChart>
 						<ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />

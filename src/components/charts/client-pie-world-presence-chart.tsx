@@ -72,10 +72,10 @@ export const ClientPieWorldPresenceChart = ({ data }: Props) => {
 				<ChartCardTitle>World Presence</ChartCardTitle>
 				<ChartCardIcon><Globe /></ChartCardIcon>
 			</ChartCardHeader>
-			<ChartCardContent>
+			<ChartCardContent className="flex flex-col min-h-0">
 				<ChartContainer
 					config={chartConfig}
-					className="mx-auto aspect-square max-h-[250px] w-full"
+					className="mx-auto aspect-square max-h-[180px] w-full max-w-full shrink-0"
 				>
 					<PieChart>
 						<ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
