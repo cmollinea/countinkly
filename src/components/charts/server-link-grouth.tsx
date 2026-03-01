@@ -1,12 +1,14 @@
+import type { DateRange } from "@/lib/date-range";
 import { getLinkGrouth } from "@/lib/charts-data";
 import { GrouthChart } from "./grouth-chart";
 
 type Props = {
 	linkId: string;
+	dateRange?: DateRange;
 };
 
-export const ServerLinkGrouth = async ({ linkId }: Props) => {
-	const data = await getLinkGrouth(linkId);
+export const ServerLinkGrouth = async ({ linkId, dateRange }: Props) => {
+	const data = await getLinkGrouth(linkId, dateRange);
 
 	const parsedData = data.map((item) => {
 		const date = new Date(item.date);

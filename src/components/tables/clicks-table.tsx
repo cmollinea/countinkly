@@ -3,24 +3,33 @@ import {
 	TableBody,
 	TableCaption,
 	TableCell,
-	TableFooter,
 	TableHead,
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import type { DateRange } from "@/lib/date-range";
 import { getClicks } from "@/lib/get-clicks";
+import { format } from "date-fns";
 import { Calendar, Globe2, LucideNetwork } from "lucide-react";
 
 type Props = {
 	linkId: string;
+	dateRange?: DateRange;
 };
 
-export const ClicksTable = async ({ linkId }: Props) => {
-	const clicks = await getClicks(linkId);
+export const ClicksTable = async ({ linkId, dateRange }: Props) => {
+	const clicks = await getClicks(linkId, dateRange);
 
-	return clicks ? (
+	return clicks.length > 0 ? (
 		<Table className="self-center">
-			<TableCaption>{clicks.length} Clicks Earned</TableCaption>
+			<TableCaption>
+				{clicks.length} Clicks Earned
+				{dateRange && (
+					<span className="block text-muted-foreground text-xs font-normal mt-1">
+						Showing data for the selected time range
+					</span>
+				)}
+			</TableCaption>
 			<TableHeader>
 				<TableRow>
 					<TableHead>
@@ -47,16 +56,18 @@ export const ClicksTable = async ({ linkId }: Props) => {
 				{clicks.map((click, index) => (
 					<TableRow
 						key={click.id}
-						className={`${index % 2 === 0 ? "bg-muted" : ""} border-y-muted`}
+						className={`${index % 2 === 0 ? "bg-muted/50" : ""} border-y-muted transition-colors hover:bg-muted`}
 					>
-						<TableCell className="">{click.timestamp.toString()}</TableCell>
+						<TableCell className="tabular-nums">
+							{format(new Date(click.timestamp), "dd/MM/yyyy HH:mm")}
+						</TableCell>
 						<TableCell>{click.origin}</TableCell>
-						<TableCell className="">{click.source}</TableCell>
+						<TableCell>{click.source}</TableCell>
 					</TableRow>
 				))}
 			</TableBody>
 		</Table>
 	) : (
-		<p>No clicks to show</p>
+		<p className="text-muted-foreground">No clicks to show in this range</p>
 	);
 };

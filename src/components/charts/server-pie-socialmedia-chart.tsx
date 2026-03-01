@@ -1,13 +1,23 @@
+import type { DateRange } from "@/lib/date-range";
 import { ClientPieSocialMediaChart } from "./client-pie-socialmedia-chart";
 import prisma from "@/lib/prisma";
 
 type Props = {
 	userId: string;
+	dateRange?: DateRange;
 };
 
-export const ServerPieSocialMediaChart = async ({ userId }: Props) => {
+export const ServerPieSocialMediaChart = async ({
+	userId,
+	dateRange,
+}: Props) => {
+	const where: { userId: string; timestamp?: { gte: Date; lte: Date } } = {
+		userId,
+	};
+	if (dateRange)
+		where.timestamp = { gte: dateRange.from, lte: dateRange.to };
 	const data = await prisma?.clicks.groupBy({
-		where: { userId },
+		where,
 		by: ["source"],
 		_count: { source: true },
 	});

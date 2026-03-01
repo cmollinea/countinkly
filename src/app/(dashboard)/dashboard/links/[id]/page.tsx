@@ -1,39 +1,41 @@
-import { validateRequest } from "@/lib/validate-request";
-import { notFound, redirect } from "next/navigation";
-import prisma from "@/lib/prisma";
+import { BackButton } from "@/components/dashboard/back-button";
+import { RangeFilter } from "@/components/dashboard/range-filter";
 import { ServerLinkGrouth } from "@/components/charts/server-link-grouth";
 import { ServerLinkPieSocialMediaChart } from "@/components/charts/server-link-pie-socialmedia-chart";
 import { ServerLinkPieWorldPresence } from "@/components/charts/server-link-pie-world-presence-chart";
-import { ClicksCard } from "@/components/info-cards/clicks-card";
-import { getLinkCountries, getLinkTotalCLicks } from "@/lib/get-clicks";
-import { CalculatorIcon, Globe2Icon } from "lucide-react";
-import { ClicksTable } from "@/components/tables/clicks-table";
-import { BackButton } from "@/components/dashboard/back-button";
-import { Suspense } from "react";
-import { ClicksCardSkeleton } from "@/components/skeletons/clicks-cards-skeleton";
-import { ChartsSkeleton } from "@/components/skeletons/charts-skeletons";
 import { Unauthorized } from "@/components/errors/unauthorized";
+import { ClicksCard } from "@/components/info-cards/clicks-card";
+import { ChartsSkeleton } from "@/components/skeletons/charts-skeletons";
+import { ClicksCardSkeleton } from "@/components/skeletons/clicks-cards-skeleton";
+import { ClicksTable } from "@/components/tables/clicks-table";
+import { getDateRange, isRangeKey, DEFAULT_RANGE } from "@/lib/date-range";
+import { getLinkCountries, getLinkTotalCLicks } from "@/lib/get-clicks";
+import prisma from "@/lib/prisma";
+import { validateRequest } from "@/lib/validate-request";
+import { CalculatorIcon, Globe2Icon } from "lucide-react";
+import { notFound, redirect } from "next/navigation";
+import { Suspense } from "react";
 
 type Props = {
-	params: {
-		id: string;
-	};
+	params: Promise<{ id: string }> | { id: string };
+	searchParams?: Promise<{ range?: string }> | { range?: string };
 };
 
-async function LinksPage({ params }: Props) {
+async function LinksPage({ params, searchParams }: Props) {
 	const { user } = await validateRequest();
 
 	if (!user) {
 		return redirect("/log-in");
 	}
 
-	const today = new Date();
+	const resolvedParams =
+		typeof (params as Promise<unknown>).then === "function"
+			? await (params as Promise<{ id: string }>)
+			: (params as { id: string });
 
 	const link = await prisma.link.findFirst({
-		where: { id: params.id },
+		where: { id: resolvedParams.id },
 	});
-
-	const clicks = await prisma.clicks.findMany({ where: { linkId: params.id } });
 
 	if (!link) {
 		return notFound();
@@ -43,14 +45,24 @@ async function LinksPage({ params }: Props) {
 		return <Unauthorized />;
 	}
 
+	const resolvedSearch =
+		searchParams && typeof (searchParams as Promise<unknown>).then === "function"
+			? await (searchParams as Promise<{ range?: string }>)
+			: (searchParams as { range?: string }) ?? {};
+	const range = isRangeKey(resolvedSearch.range) ? resolvedSearch.range : DEFAULT_RANGE;
+	const dateRange = getDateRange(range);
+
 	return (
 		<section className="py-16 md:overflow-y-auto w-full px-4 md:px-10 grid gap-10 relative">
 			<BackButton />
-			<div>
-				<h1 className=" text-2xl font-bold">
-					<span className=" text-primary">{link.displayName}</span> Information.
-				</h1>
-				<small className="opacity-60">{link.url}</small>
+			<div className="flex flex-col gap-4">
+				<div>
+					<h1 className=" text-2xl font-bold">
+						<span className=" text-primary">{link.displayName}</span> Information.
+					</h1>
+					<small className="opacity-60">{link.url}</small>
+				</div>
+				<RangeFilter />
 			</div>
 			<div className="flex flex-col items-center place-content-center space-y-5 w-full">
 				<div className="flex max-lg:space-y-5 max-lg:flex-col lg:space-x-5 w-full max-w-screen-2xl">
@@ -59,7 +71,7 @@ async function LinksPage({ params }: Props) {
 							<ClicksCard
 								id={link.id}
 								title={`${link.displayName} Total Clicks`}
-								clicksGetter={getLinkTotalCLicks}
+								clicksGetter={(id) => getLinkTotalCLicks(id, dateRange)}
 								Icon={CalculatorIcon}
 							/>
 						</Suspense>
@@ -67,7 +79,7 @@ async function LinksPage({ params }: Props) {
 							<ClicksCard
 								id={link.id}
 								title={`${link.displayName} Reached Countries`}
-								clicksGetter={getLinkCountries}
+								clicksGetter={(id) => getLinkCountries(id, dateRange)}
 								Icon={Globe2Icon}
 							/>
 						</Suspense>
@@ -76,18 +88,20 @@ async function LinksPage({ params }: Props) {
 						<ServerLinkPieWorldPresence
 							linkId={link.id}
 							name={link.displayName}
+							dateRange={dateRange}
 						/>
 					</Suspense>
 					<Suspense fallback={<ChartsSkeleton className="h-full" />}>
 						<ServerLinkPieSocialMediaChart
 							linkId={link.id}
 							name={link.displayName}
+							dateRange={dateRange}
 						/>
 					</Suspense>
 				</div>
 				<div className="max-h-fit w-full">
 					<Suspense fallback={<ChartsSkeleton className="max-w-full" />}>
-						<ServerLinkGrouth linkId={link.id} />
+						<ServerLinkGrouth linkId={link.id} dateRange={dateRange} />
 					</Suspense>
 				</div>
 			</div>
@@ -95,7 +109,7 @@ async function LinksPage({ params }: Props) {
 				<h1 className=" text-2xl font-bold">
 					<span className=" text-primary">{link.displayName}</span> Clicks Info.
 				</h1>
-				<ClicksTable linkId={link.id} />
+				<ClicksTable linkId={link.id} dateRange={dateRange} />
 			</div>
 		</section>
 	);
