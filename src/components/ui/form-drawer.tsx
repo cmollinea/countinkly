@@ -19,6 +19,7 @@ import {
 	DrawerTitle,
 	DrawerTrigger,
 } from "@/components/ui/drawer";
+import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 
 export const FormDrawer = ({ children }: { children: React.ReactNode }) => {
@@ -29,7 +30,10 @@ export const FormDrawer = ({ children }: { children: React.ReactNode }) => {
 		return (
 			<Dialog open={open} onOpenChange={setOpen}>
 				<DialogTrigger asChild>
-					<Button>Add new Link</Button>
+					<Button className="rounded-xl font-semibold shadow-sm shadow-primary/20 gap-1.5">
+						<PlusIcon size={15} />
+						Add new Link
+					</Button>
 				</DialogTrigger>
 				<DialogContent className="sm:max-w-[425px] max-md:px-6">
 					<DialogHeader>
@@ -38,7 +42,7 @@ export const FormDrawer = ({ children }: { children: React.ReactNode }) => {
 							Add a new link to track filling this form
 						</DialogDescription>
 					</DialogHeader>
-					{children}{" "}
+					{children}
 				</DialogContent>
 			</Dialog>
 		);
@@ -47,7 +51,7 @@ export const FormDrawer = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<Drawer open={open} onOpenChange={setOpen}>
 			<DrawerTrigger asChild>
-				<Button className=" rounded-full fixed bottom-4 right-4 h-12 w-12 text-xl z-20">
+				<Button className="rounded-full fixed bottom-4 right-4 h-14 w-14 text-2xl z-20 shadow-lg shadow-primary/30">
 					+
 				</Button>
 			</DrawerTrigger>

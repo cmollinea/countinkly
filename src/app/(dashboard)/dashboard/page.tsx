@@ -38,26 +38,36 @@ export default async function Page({ searchParams }: PageProps) {
 	const dateRange = getDateRange(range);
 
 	return (
-		<section className="flex flex-col w-full space-y-4 px-4 md:overflow-y-scroll py-16">
-			<div className="flex flex-col gap-4 md:px-10">
+		<section className="flex flex-col w-full space-y-8 px-4 md:overflow-y-scroll py-10">
+			{/* Page header */}
+			<div className="flex flex-col gap-5 md:px-10 border-b border-border/60 pb-8">
 				<div className="flex flex-wrap items-center justify-between gap-4">
 					<div>
-						<p className="text-3xl font-bold">
-							Hey there!{" "}
-							<span className=" text-primary">{`${user.firstName} ${user.lastName}`}</span>
+						<p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1">
+							Dashboard
+						</p>
+						<h1 className="text-2xl md:text-3xl font-bold font-heading tracking-tight">
+							Hey,{" "}
+							<span className="text-primary">{`${user.firstName} ${user.lastName}`}</span>{" "}
+							👋
+						</h1>
+						<p className="text-sm text-muted-foreground mt-1">
+							Here&apos;s what&apos;s happening with your links today.
 						</p>
 					</div>
-					<div className="flex flex-wrap items-center gap-4">
+					<div className="flex flex-wrap items-center gap-3">
 						<RangeFilter />
 						<AddLinkForm userId={user.id} />
 					</div>
 				</div>
 			</div>
 
-			<div className="space-y-6 md:px-10">
-				<h2 className="text-lg font-semibold text-muted-foreground tracking-tight">
-					Resumen
-				</h2>
+			{/* Stats cards + growth chart */}
+			<div className="space-y-4 md:px-10">
+				<div className="flex items-center gap-2 mb-4">
+					<div className="w-1 h-5 rounded-full bg-primary" />
+					<h2 className="text-sm font-semibold text-foreground">Overview</h2>
+				</div>
 				<DashboardContainer>
 					<div className="flex flex-col space-y-4 lg:max-w-md w-full">
 						<Suspense fallback={<ClicksCardSkeleton />}>
@@ -71,7 +81,7 @@ export default async function Page({ searchParams }: PageProps) {
 						<Suspense fallback={<ClicksCardSkeleton />}>
 							<ClicksCard
 								id={user.id}
-								title="Total clicks earned "
+								title="Total clicks earned"
 								Icon={Link2Icon}
 								clicksGetter={(id) => getTotalClicks(id, dateRange)}
 							/>
@@ -101,20 +111,22 @@ export default async function Page({ searchParams }: PageProps) {
 				</DashboardContainer>
 			</div>
 
-			<div className="space-y-6 md:px-10">
-				<h2 className="text-lg font-semibold text-muted-foreground tracking-tight">
-					Gráficos
-				</h2>
+			{/* Charts */}
+			<div className="space-y-4 md:px-10">
+				<div className="flex items-center gap-2 mb-4">
+					<div className="w-1 h-5 rounded-full bg-primary" />
+					<h2 className="text-sm font-semibold text-foreground">Analytics</h2>
+				</div>
 				<DashboardContainer>
-				<Suspense fallback={<ChartsSkeleton />}>
-					<ServerLinksBarchar userId={user.id} dateRange={dateRange} />
-				</Suspense>
-				<Suspense fallback={<ChartsSkeleton />}>
-					<ServerPieWorldPresence userId={user.id} dateRange={dateRange} />
-				</Suspense>
-				<Suspense fallback={<ChartsSkeleton />}>
-					<ServerPieSocialMediaChart userId={user.id} dateRange={dateRange} />
-				</Suspense>
+					<Suspense fallback={<ChartsSkeleton />}>
+						<ServerLinksBarchar userId={user.id} dateRange={dateRange} />
+					</Suspense>
+					<Suspense fallback={<ChartsSkeleton />}>
+						<ServerPieWorldPresence userId={user.id} dateRange={dateRange} />
+					</Suspense>
+					<Suspense fallback={<ChartsSkeleton />}>
+						<ServerPieSocialMediaChart userId={user.id} dateRange={dateRange} />
+					</Suspense>
 				</DashboardContainer>
 			</div>
 		</section>

@@ -13,7 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { logout } from "@/actions";
 import { User } from "lucia";
 import { useTransition } from "react";
-import { ChevronDown } from "lucide-react";
+import { LogOutIcon, ChevronDownIcon } from "lucide-react";
 
 export const DashboardUser = ({ user }: { user: User | null }) => {
 	const [isPending, startTransition] = useTransition();
@@ -21,49 +21,48 @@ export const DashboardUser = ({ user }: { user: User | null }) => {
 		startTransition(async () => await logout());
 	}
 	return (
-		<>
-			<DropdownMenu>
-				<DropdownMenuTrigger asChild>
+		<DropdownMenu>
+			<DropdownMenuTrigger asChild>
+				<Button
+					variant="ghost"
+					className="flex items-center gap-2 px-2 py-1.5 h-auto rounded-lg hover:bg-muted/60 max-md:bg-muted/40"
+				>
+					<Avatar className="h-7 w-7 max-md:h-10 max-md:w-10 ring-2 ring-primary/20">
+						<AvatarImage
+							src={`https://api.dicebear.com/7.x/bottts-neutral/png?seed=${user?.username}`}
+						/>
+						<AvatarFallback className="text-xs bg-primary/10 text-primary font-bold">
+							{user?.username.slice(0, 2).toUpperCase()}
+						</AvatarFallback>
+					</Avatar>
+					<span className="text-sm font-medium max-md:text-xl">
+						{isPending ? (
+							<span className="text-destructive animate-pulse">Signing out…</span>
+						) : (
+							user?.username
+						)}
+					</span>
+					<ChevronDownIcon size={14} className="text-muted-foreground max-md:hidden" />
+				</Button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContent align="end" className="w-48">
+				<DropdownMenuLabel className="text-xs font-normal text-muted-foreground">
+					Signed in as
+					<p className="font-semibold text-foreground truncate">{user?.username}</p>
+				</DropdownMenuLabel>
+				<DropdownMenuSeparator />
+				<DropdownMenuItem asChild>
 					<Button
-						variant={"ghost"}
-						className="py-8 md:py-5 md:px-2 space-x-1 max-md:bg-card-foreground/5"
+						className="w-full cursor-pointer"
+						variant="destructive"
+						size="sm"
+						onClick={handleLogOut}
 					>
-						<span>
-							<Avatar className="h-12 w-12 md:h-8 md:w-8">
-								<AvatarImage
-									src={`https://api.dicebear.com/7.x/bottts-neutral/png?seed=${user?.username}`}
-								/>
-								<AvatarFallback>
-									{user?.username.slice(0, 2).toUpperCase()}
-								</AvatarFallback>
-							</Avatar>
-						</span>
-						<p className="max-md:text-2xl">
-							{isPending ? (
-								<span className=" text-destructive animate-pulse">
-									Getting Out
-								</span>
-							) : (
-								user?.username
-							)}
-						</p>
+						<LogOutIcon size={14} />
+						Sign Out
 					</Button>
-				</DropdownMenuTrigger>
-				<DropdownMenuContent className="w-full max-md:w-60">
-					<DropdownMenuLabel>My Account</DropdownMenuLabel>
-					<DropdownMenuSeparator />
-					<DropdownMenuItem className=" focus:bg-inherit w-full">
-						<Button
-							className="w-full"
-							variant={"destructive"}
-							type="submit"
-							onClick={() => handleLogOut()}
-						>
-							Log Out
-						</Button>
-					</DropdownMenuItem>
-				</DropdownMenuContent>
-			</DropdownMenu>
-		</>
+				</DropdownMenuItem>
+			</DropdownMenuContent>
+		</DropdownMenu>
 	);
 };

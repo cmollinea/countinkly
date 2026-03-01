@@ -1,23 +1,31 @@
 import { buttonVariants } from "@/components/ui/button";
-import { Redo2 } from "lucide-react";
+import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
 
 function NotFound() {
 	return (
-		<div className="flex flex-col items-center place-content-center min-h-screen bg-background">
-			<p className=" font-black text-primary text-7xl">404</p>
-			<small className="text-destructive">
-				This adress can&apos;t be reached
-			</small>
+		<div className="flex flex-col items-center justify-center min-h-screen bg-background relative overflow-hidden">
+			{/* Background glow */}
+			<div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_50%,hsl(217_91%_60%_/_0.08),transparent_70%)]" />
+
+			<p className="font-heading font-black text-primary text-[120px] leading-none tabular-nums">
+				404
+			</p>
+			<h1 className="text-xl font-bold font-heading text-foreground mt-2">
+				Page not found
+			</h1>
+			<p className="text-muted-foreground text-sm mt-2 mb-6">
+				This address can&apos;t be reached. It may have been moved or deleted.
+			</p>
 			<Link
-				href={"/"}
+				href="/"
 				className={buttonVariants({
-					variant: "outline",
-					className: "mt-4 font-bold",
+					variant: "default",
+					className: "rounded-xl font-semibold",
 				})}
 			>
-				<Redo2 size={16} />
-				<span>Back Home</span>
+				<ArrowLeftIcon size={16} />
+				Back to Home
 			</Link>
 		</div>
 	);

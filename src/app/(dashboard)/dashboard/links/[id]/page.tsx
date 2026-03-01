@@ -53,16 +53,21 @@ async function LinksPage({ params, searchParams }: Props) {
 	const dateRange = getDateRange(range);
 
 	return (
-		<section className="py-16 md:overflow-y-auto w-full px-4 md:px-10 grid gap-10 relative">
-			<BackButton />
-			<div className="flex flex-col gap-4">
-				<div>
-					<h1 className=" text-2xl font-bold">
-						<span className=" text-primary">{link.displayName}</span> Information.
-					</h1>
-					<small className="opacity-60">{link.url}</small>
+		<section className="py-10 md:overflow-y-auto w-full px-4 md:px-10 grid gap-8 relative">
+			<div className="flex flex-col gap-4 border-b border-border/60 pb-6">
+				<BackButton />
+				<div className="flex flex-wrap items-end justify-between gap-4">
+					<div>
+						<p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-1">
+							Link Detail
+						</p>
+						<h1 className="text-2xl font-bold font-heading tracking-tight">
+							<span className="text-primary">{link.displayName}</span>
+						</h1>
+						<small className="text-muted-foreground text-sm truncate max-w-xs block mt-0.5">{link.url}</small>
+					</div>
+					<RangeFilter />
 				</div>
-				<RangeFilter />
 			</div>
 			<div className="flex flex-col items-center place-content-center space-y-5 w-full">
 				<div className="flex max-lg:space-y-5 max-lg:flex-col lg:space-x-5 w-full max-w-screen-2xl">
@@ -106,9 +111,12 @@ async function LinksPage({ params, searchParams }: Props) {
 				</div>
 			</div>
 			<div className="grid gap-5">
-				<h1 className=" text-2xl font-bold">
-					<span className=" text-primary">{link.displayName}</span> Clicks Info.
-				</h1>
+				<div className="flex items-center gap-2">
+					<div className="w-1 h-5 rounded-full bg-primary" />
+					<h2 className="text-sm font-semibold text-foreground">
+						Clicks Log — {link.displayName}
+					</h2>
+				</div>
 				<ClicksTable linkId={link.id} dateRange={dateRange} />
 			</div>
 		</section>

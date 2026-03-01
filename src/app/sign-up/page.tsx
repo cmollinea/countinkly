@@ -34,7 +34,7 @@ export default function SignUp() {
 							/>
 						</Link>
 						<h2 className="mt-6 font-extrabold max-w-lg text-center md:text-5xl">
-							<span className="bg-gradient-to-r from-primary to-primary bg-[length:100%_5px] bg-bottom bg-no-repeat">
+							<span className="bg-gradient-to-r from-primary to-cyan-400 bg-[length:100%_5px] bg-bottom bg-no-repeat">
 								Level up
 							</span>{" "}
 							your tracking game with{" "}
@@ -60,7 +60,7 @@ export default function SignUp() {
 							</Link>
 
 							<h1 className="mt-2 text-2xl font-bold sm:text-3xl md:text-4xl">
-								<span className="bg-gradient-to-r from-primary to-primary bg-[length:100%_5px] bg-bottom bg-no-repeat">
+								<span className="bg-gradient-to-r from-primary to-cyan-400 bg-[length:100%_5px] bg-bottom bg-no-repeat">
 									Level up
 								</span>{" "}
 								your tracking game with{" "}
